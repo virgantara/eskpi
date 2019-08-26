@@ -5,7 +5,7 @@
                             <div class="center">
                                 <h1>
                                     <i class="ace-icon fa fa-leaf green"></i>
-                                    <span class="red">Simpatika</span>
+                                    <span class="red">E-SKPI</span>
                                     <span class="white" id="id-text2">Application</span>
                                 </h1>
                                 <h4 class="grey" id="id-company-text">&copy; Universitas Darussalam Gontor</h4>

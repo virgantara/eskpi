@@ -419,10 +419,386 @@ class MastermahasiswaController extends Controller
 		$html .= '</table>';
 		$pdf->SetFont('dejavusans', '', 8);
 
-		$pdf->writeHTMLCell(200, 10, $pdf->getPageWidth()-$margin_limit-60, $top-15, $html);
+		$pdf->writeHTMLCell(200, 10, 0, $top-15, $html,0,0,0,1,'R');
+
+		$top += 1;
+		$pdf->SetFont('times', 'B', 7);
+		$html = '3. INFORMASI TENTANG KUALIFIKASI DAN HASIL YANG DICAPAI';
+		$pdf->writeHTMLCell($pdf->getPageWidth()-2*$margin_limit, 10, $margin_limit, $top, $html);
+		$top += 3;
+		$pdf->SetFont('times', 'I', 7);
+		$html = '3. Information Identifying the Qualification and Outcomes Obtained';
+		$pdf->writeHTMLCell($pdf->getPageWidth()-2*$margin_limit, 10, $margin_limit, $top, $html);
+
+		$top += 6;
+		$pdf->SetFont('times', 'B', 7);
+		$html = 'A. CAPAIAN PEMBELAJARAN';
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $margin_limit, $top, $html);
+		$html = 'A. LEARNING OUTCOMES';
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $pdf->getPageWidth() / 2 + 8, $top, $html);
+
+		$pdf->SetFont('times', '', 7);
+		$k = CapemKategori::model()->findByPk(1);
+		
+		$top += 4;
+		$html = $k->nama;
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $margin_limit, $top, $html);
+		$html = $k->nama_en;
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $pdf->getPageWidth() / 2 + 8, $top, $html);
+
+		$listCapemProdi = ProdiCapem::model()->findAllByAttributes([
+			'prodi_id' => $model->kode_prodi,
+			'capem_kategori_id' => $k->id
+		]);				
+
+		foreach($listCapemProdi as $cp)
+		{
+			$html = $cp->label;
+			$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $margin_limit, $top, $html);
+			$html = $cp->label_en;
+			$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $pdf->getPageWidth() / 2 + 8, $top, $html);				
+		}
+
+		$k = CapemKategori::model()->findByPk(2);
+		
+		$top += $pdf->getPageHeight() / 3;
+
+		$html = $k->nama;
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $margin_limit, $top, $html);
+		$html = $k->nama_en;
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $pdf->getPageWidth() / 2 + 8, $top, $html);
+
+		$listCapemProdi = ProdiCapem::model()->findAllByAttributes([
+			'prodi_id' => $model->kode_prodi,
+			'capem_kategori_id' => $k->id
+		]);				
+
+		foreach($listCapemProdi as $cp)
+		{
+			$top += 4;
+			$html = $cp->label;
+			$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $margin_limit, $top, $html);
+			$html = $cp->label_en;
+			$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $pdf->getPageWidth() / 2 + 8, $top, $html);				
+		}
+		
+		$pdf->AddPage();
+		$img_file = Yii::app()->baseUrl.'/images/header_sub_skpi.png';
+		$top = 0;
+		
+		$pdf->Image($img_file, 0, $top, $pdf->getPageWidth(), 5);
+		$img_file = Yii::app()->baseUrl.'/images/logonew.jpg';
+		$top += 8;
+		$pdf->Image($img_file, $margin_limit, $top, 20, 20);
+		$style = array('width' => 0.2, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(100, 100, 100));
+		$top += 21;
+		$pdf->Line($margin_limit-10, $top, $pdf->getPageWidth()-$margin_limit+10,$top,$style);
+		// $pdf->SetFont('times', '', 8);
+		$html = '<table border="0" cellspacing="3" cellpadding="4">';
+		$html .= '<tr><td style="color:#6e6e6e">'.ucwords(strtolower($model->nama_mahasiswa)).' | No: '.$no_ijazah.'</td></tr>';
+		$html .= '</table>';
+		$pdf->SetFont('dejavusans', '', 8);
+
+		$pdf->writeHTMLCell(200, 10, 0, $top-15, $html,0,0,0,1,'R');
+		$k = CapemKategori::model()->findByPk(3);
+		
+		$top += 3;
+		$pdf->SetFont('times', '', 8);
+		$html = $k->nama;
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $margin_limit, $top, $html);
+		$html = $k->nama_en;
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $pdf->getPageWidth() / 2 + 8, $top, $html);
+
+		$listCapemProdi = ProdiCapem::model()->findAllByAttributes([
+			'prodi_id' => $model->kode_prodi,
+			'capem_kategori_id' => $k->id
+		]);				
+
+		foreach($listCapemProdi as $cp)
+		{
+			$top += 4;
+			$html = $cp->label;
+			$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $margin_limit, $top, $html);
+			$html = $cp->label_en;
+			$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $pdf->getPageWidth() / 2 + 8, $top, $html);				
+		}
+
+		$pdf->AddPage();
+		$img_file = Yii::app()->baseUrl.'/images/header_sub_skpi.png';
+		$top = 0;
+		
+		$pdf->Image($img_file, 0, $top, $pdf->getPageWidth(), 5);
+		$img_file = Yii::app()->baseUrl.'/images/logonew.jpg';
+		$top += 8;
+		$pdf->Image($img_file, $margin_limit, $top, 20, 20);
+		$style = array('width' => 0.2, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(100, 100, 100));
+		$top += 21;
+		$pdf->Line($margin_limit-10, $top, $pdf->getPageWidth()-$margin_limit+10,$top,$style);
+		// $pdf->SetFont('times', '', 8);
+		$html = '<table border="0" cellspacing="3" cellpadding="4">';
+		$html .= '<tr><td style="color:#6e6e6e">'.ucwords(strtolower($model->nama_mahasiswa)).' | No: '.$no_ijazah.'</td></tr>';
+		$html .= '</table>';
+		$pdf->SetFont('dejavusans', '', 8);
+
+		$pdf->writeHTMLCell(200, 10, 0, $top-15, $html,0,0,0,1,'R');
+
+		$top += 4;
+		$pdf->SetFont('times', 'B', 7);
+		$html = 'B. AKTIVITAS, PRESTASI DAN PENGHARGAAN';
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $margin_limit, $top, $html);
+		$html = 'B. Activities, Achievements, and Awards';
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $pdf->getPageWidth() / 2 + 8, $top, $html);
+
+		$pdf->SetFont('times', '', 7);
+		$top += 4;
+		$html = 'Pemegang Surat Keterangan Pendamping Ijazah ini memiliki sertifikat profesional:';
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $margin_limit, $top, $html);
+		$html = '<i>The propietor of this Diploma Supplement has following professional certifications:</i>';
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $pdf->getPageWidth() / 2 + 8, $top, $html);
+
+		$top += 8;
+		$html = '1. ';
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $margin_limit, $top, $html);
+		$html = '<i>1.</i>';
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $pdf->getPageWidth() / 2 + 8, $top, $html);
+
+		$top += 4;
+		$html = '2. ';
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $margin_limit, $top, $html);
+		$html = '<i>2.</i>';
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $pdf->getPageWidth() / 2 + 8, $top, $html);
+
+		$top += 4;
+		$html = 'Mahasiswa tersebut  telah mengikuti program kegiatan atau telah memenuhi tanggung jawab yang tercantum dalam Indeks Prestasi  Kesantrian sebagai berikut:';
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $margin_limit, $top, $html);
+		$html = '<i>The student participated in the activity program or has fulfilled the responsibilities listed in the Kesantrian Achievement Index as follows:</i>';
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $pdf->getPageWidth() / 2 + 8, $top, $html);
+
+		$top += 7;
 
 
 
+		$html = '<table width="100%" border="1" cellspacing="0" cellpadding="3">';
+		$html .= '<tr><td width="10%">No</td><td width="50%">Program</td><td width="25%" style="text-align:center">Poin<br>(min-max)</td><td width="15%" style="text-align:center">Poin</td></tr>';
+		$listJenisKegiatan = JenisKegiatan::model()->findAll();
+		foreach($listJenisKegiatan as $q => $k)
+		{
+			$html .= '<tr><td width="10%" style="text-align:center">'.($q+1).'</td><td width="50%">'.$k->nama_jenis_kegiatan.'</td><td width="25%" style="text-align:center">('.$k->nilai_minimal.'-'.$k->nilai_maximal.')</td><td width="15%" style="text-align:center"></td></tr>';
+		}
+
+		$html .= '<tr><td width="60%" style="text-align:center" colspan="2">Total</td><td width="25%" style="text-align:center">(200 - 400)</td><td width="15%" style="text-align:center"></td></tr>';
+		$html .= '<tr><td width="60%" style="text-align:center" colspan="2">Indeks</td><td width="25%" style="text-align:center">(2.00 - 4.00)</td><td width="15%" style="text-align:center"></td></tr>';
+		$html .= '</table>';
+
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-50) / 2, 10, $margin_limit-1, $top, $html);
+
+		
+// 		
+		$html = '<table width="100%" border="1" cellspacing="0" cellpadding="3">';
+		$html .= '<tr><td width="10%">No</td><td width="50%">Program</td><td width="25%" style="text-align:center">Point<br>(min-max)</td><td width="15%" style="text-align:center">Point</td></tr>';
+		$listJenisKegiatan = JenisKegiatan::model()->findAll();
+		foreach($listJenisKegiatan as $q => $k)
+		{
+			$html .= '<tr><td width="10%" style="text-align:center">'.($q+1).'</td><td width="50%">'.$k->nama_jenis_kegiatan_en.'</td><td width="25%" style="text-align:center">('.$k->nilai_minimal.'-'.$k->nilai_maximal.')</td><td width="15%" style="text-align:center"></td></tr>';
+		}
+
+		$html .= '<tr><td width="60%" style="text-align:center" colspan="2">Total</td><td width="25%" style="text-align:center">(200 - 400)</td><td width="15%" style="text-align:center"></td></tr>';
+		$html .= '<tr><td width="60%" style="text-align:center" colspan="2">Index</td><td width="25%" style="text-align:center">(2.00 - 4.00)</td><td width="15%" style="text-align:center"></td></tr>';
+		$html .= '</table>';
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-50) / 2, 10, $pdf->getPageWidth() / 2 + 8-1, $top, $html);
+		
+		$pdf->setFont('times','','6');
+		$top += 51;
+		$html = 'Skala 1-4; A+=4.00, A=3.75, A-=3.50, B+=3.25, B=3.00, B-=2.75, C+=2.50, C=2.00<br>
+Baik (2.00-2.75), Memuaskan (2.76-3.00), Sangat Memuaskan (3.01-3.50), Dengan Pujian (3.76-4.00)';
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $margin_limit, $top, $html);
+		$html = '<i>Scale 1-4; A+=4.00, A=3.75, A-=3.50, B+=3.25, B=3.00, B-=2.75, C+=2.50, C=2.00
+// Good (2.00-2.75), Very Good (2.76-3.00), Excellent (3.01-3.50), Cum Laude
+//  (3.76-4.00)</i>';
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $pdf->getPageWidth() / 2 + 8, $top, $html);
+
+		$pdf->setFont('times','','7');
+		$top += 10;
+		$html = 'Program kegiatan tambahan dan pelatihan yang telah diikuti selama menjadi mahasiswa adalah sebagai berikut:
+    <ol>
+    <li>Internship (592 jam),</li>
+    <li>Pre-Graduation Program (120 jam).</li>
+    <li>Freshmen Enrichment Program (120 jam),</li> 
+    <li>Community Engagement (30 jam), </li>
+    <li>Latihan Dasar Kepemimpinan (24 jam), Latihan Kemimpinan Manajemen Mahasiswa (15 jam),</li>
+    <li>Induksi Pemimpin Organisasi Kemahasiswaan (30 jam).</li>
+    </ol>
+    ';
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $margin_limit, $top, $html);
+		$html = 'Program kegiatan tambahan dan pelatihan yang telah diikuti selama menjadi mahasiswa adalah sebagai berikut:
+    <ol>
+    <li>Internship (592 hours),</li>
+    <li>Pre-Graduation Program (120 hours).</li>
+    <li>Freshmen Enrichment Program (120 hours),</li> 
+    <li>Community Engagement (30 hours), </li>
+    <li>Basic Leadership Training (24 hours), Advanced Leadership Training (15 hours),</li>
+    <li>Induction for leaders of student organizations (30 hours).</li>
+    </ol>
+    ';
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $pdf->getPageWidth() / 2 + 8, $top, $html);
+
+		$top += 32;
+		$html = 'Catatan:<br>
+Program-program tersebut di atas terdiri 
+atas kegiatan untuk mengembangkan soft 
+skills mahasiswa. Daftar kegiatan ko-kurikuler 
+dan ekstra-kurikuler yang diikuti oleh pemegang SKPI ini terlampir.
+    ';
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $margin_limit, $top, $html);
+		$html = 'Note:<br>
+The above-mentioned programs comprise of activities that develop student’s soft skills. A list of co-curricular and extracurricular activities taken by the holder of this supplement is attached.
+    ';
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $pdf->getPageWidth() / 2 + 8, $top, $html);
+	
+		$pdf->AddPage();
+		$img_file = Yii::app()->baseUrl.'/images/header_sub_skpi.png';
+		$top = 0;
+		
+		$pdf->Image($img_file, 0, $top, $pdf->getPageWidth(), 5);
+		$img_file = Yii::app()->baseUrl.'/images/logonew.jpg';
+		$top += 8;
+		$pdf->Image($img_file, $margin_limit, $top, 20, 20);
+		$style = array('width' => 0.2, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(100, 100, 100));
+		$top += 21;
+		$pdf->Line($margin_limit-10, $top, $pdf->getPageWidth()-$margin_limit+10,$top,$style);
+		// $pdf->SetFont('times', '', 8);
+		$html = '<table border="0" cellspacing="3" cellpadding="4">';
+		$html .= '<tr><td style="color:#6e6e6e">'.ucwords(strtolower($model->nama_mahasiswa)).' | No: '.$no_ijazah.'</td></tr>';
+		$html .= '</table>';
+		$pdf->SetFont('dejavusans', '', 8);
+
+		$pdf->writeHTMLCell(200, 10, 0, $top-15, $html,0,0,0,1,'R');
+
+		$top += 1;
+		$pdf->SetFont('times', 'B', 7);
+		$html = '4. INFORMASI TENTANG SISTEM PENDIDIKAN TINGGI DI INDONESIA';
+		$pdf->writeHTMLCell($pdf->getPageWidth()-2*$margin_limit, 10, $margin_limit, $top, $html);
+		$top += 3;
+		$pdf->SetFont('times', 'I', 7);
+		$html = '4. Information on the Indonesian Higher Education System and the Indonesian National Qualifications Framework';
+		$pdf->writeHTMLCell($pdf->getPageWidth()-2*$margin_limit, 10, $margin_limit, $top, $html);
+
+		$pdf->SetFont('times', '', 7);
+		$top += 4;
+		$html = 'SISTEM PENDIDIKAN TINGGI DI INDONESIA';
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $margin_limit, $top, $html);
+		$html = '<i>Higher Education System in Indonesia</i>';
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $pdf->getPageWidth() / 2 + 8, $top, $html);
+		$top += 3;
+		$pdf->SetAutoPageBreak(true,10);
+		$univ = Univ::model()->findByAttributes(['kode'=>'DIKTI1']);
+		$html = $univ->nama;
+		$pdf->SetFont('times', '', 5);
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $margin_limit, $top, $html);
+		$html = $univ->nama_en;
+
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $pdf->getPageWidth() / 2 + 8, $top, $html);
+
+		$pdf->AddPage();
+		$img_file = Yii::app()->baseUrl.'/images/header_sub_skpi.png';
+		$top = 0;
+		
+		$pdf->Image($img_file, 0, $top, $pdf->getPageWidth(), 5);
+		$img_file = Yii::app()->baseUrl.'/images/logonew.jpg';
+		$top += 8;
+		$pdf->Image($img_file, $margin_limit, $top, 20, 20);
+		$style = array('width' => 0.2, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(100, 100, 100));
+		$top += 21;
+		$pdf->Line($margin_limit-10, $top, $pdf->getPageWidth()-$margin_limit+10,$top,$style);
+		// $pdf->SetFont('times', '', 8);
+		$html = '<table border="0" cellspacing="3" cellpadding="4">';
+		$html .= '<tr><td style="color:#6e6e6e">'.ucwords(strtolower($model->nama_mahasiswa)).' | No: '.$no_ijazah.'</td></tr>';
+		$html .= '</table>';
+		$pdf->SetFont('dejavusans', '', 8);
+
+		$pdf->writeHTMLCell(200, 10, 0, $top-15, $html,0,0,0,1,'R');
+
+		$pdf->SetFont('times', '', 7);
+		$top += 3;
+		$pdf->SetAutoPageBreak(true,10);
+		$univ = Univ::model()->findByAttributes(['kode'=>'DIKTI2']);
+		$html = $univ->nama;
+		$pdf->SetFont('times', '', 5);
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $margin_limit, $top, $html);
+		$html = $univ->nama_en;
+
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $pdf->getPageWidth() / 2 + 8, $top, $html);
+
+		$pdf->AddPage();
+		$img_file = Yii::app()->baseUrl.'/images/header_sub_skpi.png';
+		$top = 0;
+		
+		$pdf->Image($img_file, 0, $top, $pdf->getPageWidth(), 5);
+		$img_file = Yii::app()->baseUrl.'/images/logonew.jpg';
+		$top += 8;
+		$pdf->Image($img_file, $margin_limit, $top, 20, 20);
+		$style = array('width' => 0.2, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(100, 100, 100));
+		$top += 21;
+		$pdf->Line($margin_limit-10, $top, $pdf->getPageWidth()-$margin_limit+10,$top,$style);
+		// $pdf->SetFont('times', '', 8);
+		$html = '<table border="0" cellspacing="3" cellpadding="4">';
+		$html .= '<tr><td style="color:#6e6e6e">'.ucwords(strtolower($model->nama_mahasiswa)).' | No: '.$no_ijazah.'</td></tr>';
+		$html .= '</table>';
+		$pdf->SetFont('dejavusans', '', 8);
+
+		$pdf->writeHTMLCell(200, 10, 0, $top-15, $html,0,0,0,1,'R');
+
+		$top += 1;
+		$pdf->SetFont('times', 'B', 7);
+		$html = '5. KERANGKA KUALIFIKASI NASIONAL INDONESIA (KKNI)';
+		$pdf->writeHTMLCell($pdf->getPageWidth()-2*$margin_limit, 10, $margin_limit, $top, $html);
+		$top += 3;
+		$pdf->SetFont('times', 'I', 7);
+		$html = '5. Indonesian Qualification Framework';
+		$pdf->writeHTMLCell($pdf->getPageWidth()-2*$margin_limit, 10, $margin_limit, $top, $html);
+
+		$pdf->SetFont('times', '', 7);
+		$top += 5;
+
+		$univ = Univ::model()->findByAttributes(['kode'=>'KKNI1']);
+		$html = $univ->nama;
+		$pdf->SetFont('times', '', 5);
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $margin_limit, $top, $html);
+		$html = $univ->nama_en;
+
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $pdf->getPageWidth() / 2 + 8, $top, $html);
+		$top += 8;
+		$img_file = Yii::app()->baseUrl.'/images/sskkni.png';
+		$pdf->Image($img_file, $pdf->getPageWidth()/2 - 50, $pdf->getPageHeight()/2 - 50, 100, 100);
+
+		$pdf->AddPage();
+		$img_file = Yii::app()->baseUrl.'/images/header_sub_skpi.png';
+		$top = 0;
+		
+		$pdf->Image($img_file, 0, $top, $pdf->getPageWidth(), 5);
+		$img_file = Yii::app()->baseUrl.'/images/logonew.jpg';
+		$top += 8;
+		$pdf->Image($img_file, $margin_limit, $top, 20, 20);
+		$style = array('width' => 0.2, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(100, 100, 100));
+		$top += 21;
+		$pdf->Line($margin_limit-10, $top, $pdf->getPageWidth()-$margin_limit+10,$top,$style);
+		// $pdf->SetFont('times', '', 8);
+		$html = '<table border="0" cellspacing="3" cellpadding="4">';
+		$html .= '<tr><td style="color:#6e6e6e">'.ucwords(strtolower($model->nama_mahasiswa)).' | No: '.$no_ijazah.'</td></tr>';
+		$html .= '</table>';
+		$pdf->SetFont('dejavusans', '', 8);
+
+		$pdf->writeHTMLCell(200, 10, 0, $top-15, $html,0,0,0,1,'R');
+
+		$top += 1;
+		$pdf->SetFont('times', 'B', 7);
+		$html = '5. KERANGKA KUALIFIKASI NASIONAL INDONESIA (KKNI)';
+		$pdf->writeHTMLCell($pdf->getPageWidth()-2*$margin_limit, 10, $margin_limit, $top, $html);
+		$top += 3;
+		$pdf->SetFont('times', 'I', 7);
+		$html = '5. Indonesian Qualification Framework';
+		$pdf->writeHTMLCell($pdf->getPageWidth()-2*$margin_limit, 10, $margin_limit, $top, $html);
+		
 		$pdf->Output();
 	}
 

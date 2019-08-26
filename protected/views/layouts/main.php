@@ -38,54 +38,54 @@
 	        'encodeLabel'=>false,
 			'items'=>array(
 				array('label'=>'Home', 'url'=>array('/site/home'),'visible'=>!Yii::app()->user->isGuest),
-				array('label'=>'Jadwal', 'url'=>array('/jadwal/index'),'visible'=>!Yii::app()->user->isGuest),
-				[
-					'label' => 'Cetak <span class="caret"></span>',
-					'url' => '#',
-					'visible'=>!Yii::app()->user->isGuest,
-					'itemOptions' => ['class'=>'dropdown-toggle'],
-					'linkOptions' => ['class'=>'dropdown-toggle','data-toggle'=>"dropdown",'role' =>'button'],
-					'items' => [
-						array('label'=>'Cetak Bulk KRS', 'url'=>array('/krs/bulk'),'visible'=>!Yii::app()->user->isGuest),
-						array('label'=>'Cetak Kartu Ujian', 'url'=>array('/krs/kartu'),'visible'=>Yii::app()->user->checkAccess(array(WebUser::R_SA))),
-						array('label'=>'Cetak Jurnal', 'url'=>array('/jadwal/cetakJurnal'),'visible'=>Yii::app()->user->checkAccess(array(WebUser::R_SA))),
-						array('label'=>'Cetak Jadwal Personal All', 'url'=>array('/jadwal/cetakPersonalAll'),'visible'=>Yii::app()->user->checkAccess(array(WebUser::R_SA))),
-						array('label'=>'Cetak Lampiran SK', 'url'=>array('/jadwal/cetakLampiran'),'visible'=>!Yii::app()->user->isGuest),
-					]
-				],
-				[
-					'label' => 'Rekap <span class="caret"></span>',
-					'url' => '#',
-					'visible'=>!Yii::app()->user->isGuest,
-					'itemOptions' => ['class'=>'dropdown-toggle'],
-					'linkOptions' => ['class'=>'dropdown-toggle','data-toggle'=>"dropdown",'role' =>'button'],
-					'items' => [
-						array('label'=>'Rekap Jadwal Per Prodi', 'url'=>array('/jadwal/rekapJadwal'),'visible'=>!Yii::app()->user->isGuest),
-						array('label'=>'Rekap Jadwal Semua Dosen', 'url'=>array('/jadwal/rekapJadwalAll'),'visible'=>!Yii::app()->user->isGuest),
-						array('label'=>'Rekap Jadwal Bentrok', 'url'=>array('/jadwal/rekapJadwalBentrok'),'visible'=>!Yii::app()->user->isGuest),
-					]
-				],
+				// array('label'=>'Jadwal', 'url'=>array('/jadwal/index'),'visible'=>!Yii::app()->user->isGuest),
+				// [
+				// 	'label' => 'Cetak <span class="caret"></span>',
+				// 	'url' => '#',
+				// 	'visible'=>!Yii::app()->user->isGuest,
+				// 	'itemOptions' => ['class'=>'dropdown-toggle'],
+				// 	'linkOptions' => ['class'=>'dropdown-toggle','data-toggle'=>"dropdown",'role' =>'button'],
+				// 	'items' => [
+				// 		array('label'=>'Cetak Bulk KRS', 'url'=>array('/krs/bulk'),'visible'=>!Yii::app()->user->isGuest),
+				// 		array('label'=>'Cetak Kartu Ujian', 'url'=>array('/krs/kartu'),'visible'=>Yii::app()->user->checkAccess(array(WebUser::R_SA))),
+				// 		array('label'=>'Cetak Jurnal', 'url'=>array('/jadwal/cetakJurnal'),'visible'=>Yii::app()->user->checkAccess(array(WebUser::R_SA))),
+				// 		array('label'=>'Cetak Jadwal Personal All', 'url'=>array('/jadwal/cetakPersonalAll'),'visible'=>Yii::app()->user->checkAccess(array(WebUser::R_SA))),
+				// 		array('label'=>'Cetak Lampiran SK', 'url'=>array('/jadwal/cetakLampiran'),'visible'=>!Yii::app()->user->isGuest),
+				// 	]
+				// ],
+				// [
+				// 	'label' => 'Rekap <span class="caret"></span>',
+				// 	'url' => '#',
+				// 	'visible'=>!Yii::app()->user->isGuest,
+				// 	'itemOptions' => ['class'=>'dropdown-toggle'],
+				// 	'linkOptions' => ['class'=>'dropdown-toggle','data-toggle'=>"dropdown",'role' =>'button'],
+				// 	'items' => [
+				// 		array('label'=>'Rekap Jadwal Per Prodi', 'url'=>array('/jadwal/rekapJadwal'),'visible'=>!Yii::app()->user->isGuest),
+				// 		array('label'=>'Rekap Jadwal Semua Dosen', 'url'=>array('/jadwal/rekapJadwalAll'),'visible'=>!Yii::app()->user->isGuest),
+				// 		array('label'=>'Rekap Jadwal Bentrok', 'url'=>array('/jadwal/rekapJadwalBentrok'),'visible'=>!Yii::app()->user->isGuest),
+				// 	]
+				// ],
 
-				array('label'=>'Unggah Jadwal', 'url'=>array('/jadwal/uploadJadwal'),'visible'=>!Yii::app()->user->isGuest),
+				// array('label'=>'Unggah Jadwal', 'url'=>array('/jadwal/uploadJadwal'),'visible'=>!Yii::app()->user->isGuest),
 				
-				// array('label'=>'Unggah PA', 'url'=>array('/mastermahasiswa/uploadPA'),'visible'=>!Yii::app()->user->isGuest),
-				array('label'=>'Jadwal Personal', 'url'=>array('/jadwal/cetakPerDosen')),
+				// // array('label'=>'Unggah PA', 'url'=>array('/mastermahasiswa/uploadPA'),'visible'=>!Yii::app()->user->isGuest),
+				// array('label'=>'Jadwal Personal', 'url'=>array('/jadwal/cetakPerDosen')),
 				
-				array('label'=>'Catatan Revisi', 'url'=>array('/jadwalLog/admin'),'visible'=>Yii::app()->user->checkAccess(array(WebUser::R_SA))),
+				// array('label'=>'Catatan Revisi', 'url'=>array('/jadwalLog/admin'),'visible'=>Yii::app()->user->checkAccess(array(WebUser::R_SA))),
 				
-				array('label'=>'Data Belum Input Nilai', 'url'=>array('/krs/nilai'),'visible'=>Yii::app()->user->checkAccess(array(WebUser::R_SA))),
-				[
-					'label'=>'Laporan <span class="caret"></span>', 
-					'url'=>'#',
-					'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA]),
-					'itemOptions' => ['class'=>'dropdown-toggle'],
-					'linkOptions' => ['class'=>'dropdown-toggle','data-toggle'=>"dropdown",'role' =>'button'],
-					'items' => [
-						['label'=>'Laporan Input Nilai', 'url'=>['/krs/nilai'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
-						['label'=>'Mahasiswa Belum Lengkap Data Ortu', 'url'=>['/mastermahasiswa/dataortu'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
-						['label'=>'Lampiran SK', 'url'=>array('/jadwalLampiranSk/admin'),'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
-					]
-				],
+				// array('label'=>'Data Belum Input Nilai', 'url'=>array('/krs/nilai'),'visible'=>Yii::app()->user->checkAccess(array(WebUser::R_SA))),
+				// [
+				// 	'label'=>'Laporan <span class="caret"></span>', 
+				// 	'url'=>'#',
+				// 	'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA]),
+				// 	'itemOptions' => ['class'=>'dropdown-toggle'],
+				// 	'linkOptions' => ['class'=>'dropdown-toggle','data-toggle'=>"dropdown",'role' =>'button'],
+				// 	'items' => [
+				// 		['label'=>'Laporan Input Nilai', 'url'=>['/krs/nilai'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
+				// 		['label'=>'Mahasiswa Belum Lengkap Data Ortu', 'url'=>['/mastermahasiswa/dataortu'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
+				// 		['label'=>'Lampiran SK', 'url'=>array('/jadwalLampiranSk/admin'),'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
+				// 	]
+				// ],
 				[
 					'label'=>'Master <span class="caret"></span>', 
 					'url'=>'#',
@@ -93,22 +93,17 @@
 					'itemOptions' => ['class'=>'dropdown-toggle'],
 					'linkOptions' => ['class'=>'dropdown-toggle','data-toggle'=>"dropdown",'role' =>'button'],
 					'items' => [
-						['label'=>'Upload Mahasiswa ke SIAKAD', 'url'=>['/mastermahasiswa/uploadMhs'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
-						['label'=>'Sync Jadwal ke SIAKAD', 'url'=>['/jadwal/syncJadwal'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
-						['label'=>'Mata Kuliah', 'url'=>['/mastermatakuliah/index'],'visible'=>!Yii::app()->user->isGuest],
-						['label'=>'Kelas', 'url'=>['/masterkelas/index'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
-						['label'=>'Kampus', 'url'=>['/kampus/index'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
-						['label'=>'Tahun Akademik', 'url'=>['/tahunakademik/index'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
-						['label'=>'Jam Mengajar', 'url'=>['/jam/index'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
 						['label'=>'Mahasiswa', 'url'=>['/mastermahasiswa/admin'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
-						['label'=>'Dosen', 'url'=>['/masterdosen/admin'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
-						['label'=>'User di SIAKAD', 'url'=>['/users/index'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
+						['label'=>'Kategori Capaian Pembelajaran', 'url'=>['/capemKategori/admin'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
+						['label'=>'Prodi Capaian Pembelajaran', 'url'=>['/prodiCapem/admin'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
+						// ['label'=>'User di SIAKAD', 'url'=>['/users/index'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
+						['label'=>'Data KKNI & DIKTI', 'url'=>['/univ/admin'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
 						['label'=>'User SIMPATIKA', 'url'=>['/user/index'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
-						['label'=>'Data KRS di SIAKAD', 'url'=>['/datakrs/index'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
-						['label'=>'TTD Rektor', 'url'=>['/utils/ttd'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
+						// ['label'=>'Data KRS di SIAKAD', 'url'=>['/datakrs/index'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
+						// ['label'=>'TTD Rektor', 'url'=>['/utils/ttd'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
 					]
 				],
-				array('label'=>'Biodata Mahasiswa', 'url'=>array('/mastermahasiswa/dataortu'),'visible'=>Yii::app()->user->checkAccess(array(WebUser::R_SA))),
+				// array('label'=>'Biodata Mahasiswa', 'url'=>array('/mastermahasiswa/dataortu'),'visible'=>Yii::app()->user->checkAccess(array(WebUser::R_SA))),
 				// array('label'=>'Log', 'url'=>array('/logs/admin'),'visible'=>Yii::app()->user->checkAccess(array(WebUser::R_SA))),
 				// array('label'=>'Foto', 'url'=>array('/utils/foto'),'visible'=>Yii::app()->user->checkAccess(array(WebUser::R_SA))),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),

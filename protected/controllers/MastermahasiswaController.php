@@ -821,25 +821,26 @@ The above-mentioned programs comprise of activities that develop student’s sof
 		$pdf->Line($pdf->getPageWidth() / 2 + 8, $top, $pdf->getPageWidth() - $margin_limit,$top,$style);
 
 		$top += 2;
+		$pdf->SetFont('times', '', 8);
 		$html = 'DEKAN FAKULTAS '.$model->kodeProdi->kodeFakultas->nama_fakultas;
 		$pdf->writeHTMLCell($pdf->getPageWidth()-2*$margin_limit, 10, $margin_limit, $top, $html);
 		$html = 'KETUA PROGRAM STUDI '.$model->kodeProdi->nama_prodi;
 		$pdf->writeHTMLCell($pdf->getPageWidth()-2*$margin_limit, 10,  $pdf->getPageWidth() / 2 + 8, $top, $html);
 
 		$top += 4;
-		$pdf->SetFont('times', 'I', 11);
+		$pdf->SetFont('times', 'I', 8);
 		$html = 'Dean of ';
 		$pdf->writeHTMLCell($pdf->getPageWidth()-2*$margin_limit, 10, $margin_limit, $top, $html);
 		$html = 'Dean of '.$model->kodeProdi->nama_prodi;
 		$pdf->writeHTMLCell($pdf->getPageWidth()-2*$margin_limit, 10,  $pdf->getPageWidth() / 2 + 8, $top, $html);
 		$top += 7;
-		$pdf->SetFont('times', '', 11);
+		$pdf->SetFont('times', '', 8);
 		$html = 'NOMOR INDUK YAYASAN: '.$model->kodeProdi->kodeFakultas->pejabat0->niy;
 		$pdf->writeHTMLCell($pdf->getPageWidth()-2*$margin_limit, 10, $margin_limit, $top, $html);
 		$html = 'NOMOR INDUK YAYASAN '.$kaprodi->niy;
 		$pdf->writeHTMLCell($pdf->getPageWidth()-2*$margin_limit, 10,  $pdf->getPageWidth() / 2 + 8, $top, $html);
 		$top += 4;
-		$pdf->SetFont('times', 'I', 11);
+		$pdf->SetFont('times', 'I', 8);
 		$html = 'Foundation ID Number: '.$model->kodeProdi->kodeFakultas->pejabat0->niy;
 		$pdf->writeHTMLCell($pdf->getPageWidth()-2*$margin_limit, 10, $margin_limit, $top, $html);
 		$html = 'Foundation ID Number '.$kaprodi->niy;
@@ -896,12 +897,12 @@ The above-mentioned programs comprise of activities that develop student’s sof
     ';
 		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $margin_limit, $top, $html);
 
-		$html = '<p><span style="font-size:10px"><span style="font-family:Times New Roman,Times,serif">ALAMAT<br />
+		$html = '<p><span style="font-size:8px"><span style="font-family:Times New Roman,Times,serif">ALAMAT<br />
 <em>Contact Details</em><br />
 UNIVERSITAS DARUSSALAM GONTOR</span></span></p>
 
 <p><br />
-<span style="font-size:10px"><span style="font-family:Times New Roman,Times,serif">Jl. Raya Siman No. 5<br />
+<span style="font-size:8px"><span style="font-family:Times New Roman,Times,serif">Jl. Raya Siman No. 5<br />
 Ponorogo, Jawa Timur<br />
 Indonesia<br />
 Tel: (0352) 357 4562<br />
@@ -911,6 +912,7 @@ Email: skpi@unida.gontor.ac.id</span></span></p>
 
 <p>&nbsp;</p>
 ';
+
 		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $pdf->getPageWidth() / 2 + 8, $top, $html);
 		
 		$pdf->Output();

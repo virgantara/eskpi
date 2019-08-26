@@ -98,7 +98,7 @@
 						['label'=>'Prodi Capaian Pembelajaran', 'url'=>['/prodiCapem/admin'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
 						// ['label'=>'User di SIAKAD', 'url'=>['/users/index'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
 						['label'=>'Data KKNI & DIKTI', 'url'=>['/univ/admin'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
-						['label'=>'User SIMPATIKA', 'url'=>['/user/index'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
+						['label'=>'User', 'url'=>['/user/index'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
 						// ['label'=>'Data KRS di SIAKAD', 'url'=>['/datakrs/index'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
 						// ['label'=>'TTD Rektor', 'url'=>['/utils/ttd'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
 					]

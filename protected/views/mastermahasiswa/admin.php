@@ -65,7 +65,7 @@ $this->breadcrumbs=array(
 		'status_aktivitas',
 		array(
 			'class'=>'CButtonColumn',
-			'template' => '{view} {update} {delete} {skpi}',
+			'template' => '{skpi}',
 			'buttons' => array(
 				
 				// 'printPengantar' => array(

@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "simak_masterfakultas".
+ * This is the model class for table "{{masterfakultas}}".
  *
- * The followings are the available columns in table 'simak_masterfakultas':
+ * The followings are the available columns in table '{{masterfakultas}}':
  * @property integer $id
  * @property string $kode_badan_hukum
  * @property string $kode_pt
@@ -12,15 +12,23 @@
  * @property string $tgl_pendirian
  * @property string $pejabat
  * @property string $jabatan
+ *
+ * The followings are the available model relations:
+ * @property Masterdosen $pejabat0
+ * @property Masterprogramstudi[] $masterprogramstudis
  */
 class Masterfakultas extends CActiveRecord
 {
+
+	public $SEARCH;
+	public $PAGE_SIZE = 10;
+
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'simak_masterfakultas';
+		return '{{masterfakultas}}';
 	}
 
 	/**
@@ -36,7 +44,7 @@ class Masterfakultas extends CActiveRecord
 			array('kode_pt', 'length', 'max'=>6),
 			array('kode_fakultas', 'length', 'max'=>5),
 			array('nama_fakultas', 'length', 'max'=>100),
-			array('pejabat', 'length', 'max'=>10),
+			array('pejabat', 'length', 'max'=>30),
 			array('jabatan', 'length', 'max'=>1),
 			array('tgl_pendirian', 'safe'),
 			// The following rule is used by search().
@@ -53,6 +61,8 @@ class Masterfakultas extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'pejabat0' => array(self::BELONGS_TO, 'Masterdosen', 'pejabat'),
+			'masterprogramstudis' => array(self::HAS_MANY, 'Masterprogramstudi', 'kode_fakultas'),
 		);
 	}
 
@@ -90,18 +100,24 @@ class Masterfakultas extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
+		$sort = new CSort;
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('kode_badan_hukum',$this->kode_badan_hukum,true);
-		$criteria->compare('kode_pt',$this->kode_pt,true);
-		$criteria->compare('kode_fakultas',$this->kode_fakultas,true);
-		$criteria->compare('nama_fakultas',$this->nama_fakultas,true);
-		$criteria->compare('tgl_pendirian',$this->tgl_pendirian,true);
-		$criteria->compare('pejabat',$this->pejabat,true);
-		$criteria->compare('jabatan',$this->jabatan,true);
+		$criteria->addSearchCondition('id',$this->SEARCH,true,'OR');
+		$criteria->addSearchCondition('kode_badan_hukum',$this->SEARCH,true,'OR');
+		$criteria->addSearchCondition('kode_pt',$this->SEARCH,true,'OR');
+		$criteria->addSearchCondition('kode_fakultas',$this->SEARCH,true,'OR');
+		$criteria->addSearchCondition('nama_fakultas',$this->SEARCH,true,'OR');
+		$criteria->addSearchCondition('tgl_pendirian',$this->SEARCH,true,'OR');
+		$criteria->addSearchCondition('pejabat',$this->SEARCH,true,'OR');
+		$criteria->addSearchCondition('jabatan',$this->SEARCH,true,'OR');
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'sort'=>$sort,
+			'pagination'=>array(
+				'pageSize'=>$this->PAGE_SIZE,
+
+			),
 		));
 	}
 

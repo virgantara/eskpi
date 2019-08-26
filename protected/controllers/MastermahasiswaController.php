@@ -792,12 +792,126 @@ The above-mentioned programs comprise of activities that develop student’s sof
 
 		$top += 1;
 		$pdf->SetFont('times', 'B', 7);
-		$html = '5. KERANGKA KUALIFIKASI NASIONAL INDONESIA (KKNI)';
+		$html = '6. PENGESAHAN SKPI';
 		$pdf->writeHTMLCell($pdf->getPageWidth()-2*$margin_limit, 10, $margin_limit, $top, $html);
 		$top += 3;
 		$pdf->SetFont('times', 'I', 7);
-		$html = '5. Indonesian Qualification Framework';
+		$html = '6. SKPI Legalization';
 		$pdf->writeHTMLCell($pdf->getPageWidth()-2*$margin_limit, 10, $margin_limit, $top, $html);
+		
+		$pdf->SetFont('times', '', 9);
+		$top += 25;
+		$html = 'Ponorogo, '.date('d').' '.$bulans[date('m')].' '.date('Y');
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $margin_limit, $top, $html);
+		$top += 4;
+		$pdf->SetFont('times', 'I', 9);
+		$html = 'Ponorogo, '.date('F d, Y');
+		$pdf->writeHTMLCell($pdf->getPageWidth()-2*$margin_limit, 10, $margin_limit, $top, $html);
+
+		$pdf->SetFont('times', '', 12);
+		$top += 25;
+		$html = $model->kodeProdi->kodeFakultas->pejabat0->nama_dosen;
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $margin_limit, $top, $html);
+		$kaprodi = Masterdosen::model()->findByAttributes(['nidn'=>$model->kodeProdi->nidn_ketua_prodi]);
+		$html = $kaprodi->nama_dosen;
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $pdf->getPageWidth() / 2 + 8, $top, $html);
+		$style = array('width' => 0.2, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(100, 100, 100));
+		$top += 6;
+		$pdf->Line($margin_limit, $top, $pdf->getPageWidth() / 2 - $margin_limit,$top,$style);
+		$pdf->Line($pdf->getPageWidth() / 2 + 8, $top, $pdf->getPageWidth() - $margin_limit,$top,$style);
+
+		$top += 2;
+		$html = 'DEKAN FAKULTAS '.$model->kodeProdi->kodeFakultas->nama_fakultas;
+		$pdf->writeHTMLCell($pdf->getPageWidth()-2*$margin_limit, 10, $margin_limit, $top, $html);
+		$html = 'KETUA PROGRAM STUDI '.$model->kodeProdi->nama_prodi;
+		$pdf->writeHTMLCell($pdf->getPageWidth()-2*$margin_limit, 10,  $pdf->getPageWidth() / 2 + 8, $top, $html);
+
+		$top += 4;
+		$pdf->SetFont('times', 'I', 11);
+		$html = 'Dean of ';
+		$pdf->writeHTMLCell($pdf->getPageWidth()-2*$margin_limit, 10, $margin_limit, $top, $html);
+		$html = 'Dean of '.$model->kodeProdi->nama_prodi;
+		$pdf->writeHTMLCell($pdf->getPageWidth()-2*$margin_limit, 10,  $pdf->getPageWidth() / 2 + 8, $top, $html);
+		$top += 7;
+		$pdf->SetFont('times', '', 11);
+		$html = 'NOMOR INDUK YAYASAN: '.$model->kodeProdi->kodeFakultas->pejabat0->niy;
+		$pdf->writeHTMLCell($pdf->getPageWidth()-2*$margin_limit, 10, $margin_limit, $top, $html);
+		$html = 'NOMOR INDUK YAYASAN '.$kaprodi->niy;
+		$pdf->writeHTMLCell($pdf->getPageWidth()-2*$margin_limit, 10,  $pdf->getPageWidth() / 2 + 8, $top, $html);
+		$top += 4;
+		$pdf->SetFont('times', 'I', 11);
+		$html = 'Foundation ID Number: '.$model->kodeProdi->kodeFakultas->pejabat0->niy;
+		$pdf->writeHTMLCell($pdf->getPageWidth()-2*$margin_limit, 10, $margin_limit, $top, $html);
+		$html = 'Foundation ID Number '.$kaprodi->niy;
+		$pdf->writeHTMLCell($pdf->getPageWidth()-2*$margin_limit, 10,  $pdf->getPageWidth() / 2 + 8, $top, $html);
+
+		$pdf->SetFont('times', '', 7);
+		// $top += 6;
+		$top += 21;
+		$pdf->Line($margin_limit-10, $top, $pdf->getPageWidth()-$margin_limit+10,$top,$style);
+		$top += 3;
+		$html = '
+		<p style="text-align:justify">CATATAN:</p>
+
+<ul>
+	<li>
+	<p style="text-align:justify"><span style="font-size:7px"><span style="font-family:Times New Roman,Times,serif"><span style="color:#333333">SKPI dikeluarkan oleh institusi pendidikan tinggi yang berwenang</span></span></span> <span style="font-size:7px"><span style="font-family:Times New Roman,Times,serif"><span style="color:#333333">mengeluarkan ijazah sesuai dengan paraturan perundang-undangan yang berlaku.</span></span></span></p>
+	</li>
+	<li>
+	<p style="text-align:justify"><span style="font-size:7px"><span style="font-family:Times New Roman,Times,serif"><span style="color:#333333">SKPI hanya diterbitkan setelah mahasiswa dinyatakan lulus dari suatu program studi secara resmi oleh Perguruan Tinggi.</span></span></span></p>
+	</li>
+	<li>
+	<p style="text-align:justify"><span style="font-size:7px"><span style="font-family:Times New Roman,Times,serif"><span style="color:#333333">SKPI diterbitkan dalam Bahasa Indonesia dan Bahasa Inggris.</span></span></span></p>
+	</li>
+	<li>
+	<p style="margin-right:61px; text-align:justify"><span style="font-size:7px"><span style="font-family:Times New Roman,Times,serif"><span style="color:#333333">SKPI yang asli diterbitkan mengunakan kertas khusus (barcode/halogram security paper) berlogo Perguruan Tinggi, yang diterbitkan secara khusus oleh Perguruan Tinggi.</span></span></span></p>
+	</li>
+	<li>
+	<p style="margin-right:61px; text-align:justify"><span style="font-size:7px"><span style="font-family:Times New Roman,Times,serif"><span style="color:#333333">Penerima SKPI dicantumkan dalam situs resmi Perguruan Tinggi.</span></span></span></p>
+	</li>
+</ul>
+
+<p style="text-align:justify"><em>Official Notes: </em></p>
+
+<ul>
+	<li>
+	<p style="margin-right:47px; text-align:justify"><em><span style="font-size:7px"><span style="font-family:Times New Roman,Times,serif"><span style="color:#333333"><em>This Diploma Supplement is issued by University of Darussalam Gontor, a higher education institution authorized to issue diplomas in accordance with the applicable Laws.</em></span></span></span></em></p>
+	</li>
+	<li>
+	<p style="margin-right:47px; text-align:justify"><em><span style="font-size:7px"><span style="font-family:Times New Roman,Times,serif"><span style="color:#333333"><em>This Diploma Supplement is issued after the student is offcially declared a graduate of a study program by the University of Darussalam Gontor.</em></span></span></span></em></p>
+	</li>
+	<li>
+	<p style="text-align:justify"><em><span style="font-size:7px"><span style="font-family:Times New Roman,Times,serif"><span style="color:#333333"><em>This Diploma Supplement is written in both Bahasa Indonesia English.</em></span></span></span></em></p>
+	</li>
+	<li>
+	<p style="margin-right:56px; text-align:justify"><em><span style="font-size:7px"><span style="font-family:Times New Roman,Times,serif"><span style="color:#333333"><em>The original copy of this Diploma Supplement is on barcoded/halogram security paper, sealed with the higher education institution&rsquo;s logo, and issued exclusively by </em></span><span style="color:#333333"><em>University of Darussalam Gontor</em></span><span style="color:#333333"><em>.</em></span></span></span></em></p>
+	</li>
+	<li>
+	<p style="text-align:justify"><em><span style="font-size:7px"><span style="font-family:Times New Roman,Times,serif"><span style="color:#333333"><em>The awardee of this Diploma Supplement is officially listed in the University&rsquo;s oﬃcial website.</em></span></span></span></em></p>
+	</li>
+</ul>
+
+
+
+    ';
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $margin_limit, $top, $html);
+
+		$html = '<p><span style="font-size:10px"><span style="font-family:Times New Roman,Times,serif">ALAMAT<br />
+<em>Contact Details</em><br />
+UNIVERSITAS DARUSSALAM GONTOR</span></span></p>
+
+<p><br />
+<span style="font-size:10px"><span style="font-family:Times New Roman,Times,serif">Jl. Raya Siman No. 5<br />
+Ponorogo, Jawa Timur<br />
+Indonesia<br />
+Tel: (0352) 357 4562<br />
+Fax: (0352) 488 182<br />
+Website: http://unida.gontor.ac.id<br />
+Email: skpi@unida.gontor.ac.id</span></span></p>
+
+<p>&nbsp;</p>
+';
+		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $pdf->getPageWidth() / 2 + 8, $top, $html);
 		
 		$pdf->Output();
 	}

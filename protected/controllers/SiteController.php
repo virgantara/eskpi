@@ -34,9 +34,28 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
+		$this->render('home');
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
-		$this->actionLogin();
+		// $this->actionLogin();
+	}
+
+	public function actionContact()
+	{
+		$model = new ContactForm;
+		$this->render('contact',[
+			'model' => $model
+		]);
+	}
+
+	public function actionJadwal()
+	{
+		$this->render('jadwal');
+	}
+
+	public function actionAbout()
+	{
+		$this->render('pages/about');
 	}
 
 	public function actionHome()
@@ -114,7 +133,7 @@ class SiteController extends Controller
 	public function actionLogout()
 	{
 		Yii::app()->user->logout();
-		$this->redirect(array('site/login'));
+		$this->redirect(array('site/index'));
 	}
 	
 }

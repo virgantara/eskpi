@@ -9,25 +9,40 @@ $this->breadcrumbs=array(
 <section id="home" class="section">
   <div class="container">
     <div class="section-header">          
-      <h2 class="section-title">SURAT KETERANGAN PENDAMPING IJAZAH</h2>
+      <h2 class="section-title">Important Dates</h2>
       <span>Services</span>
       <p class="section-subtitle">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy</p>
     </div>
-     <div class="row">
-                <div class="col-md-6 col-sm-6">
-                    <h3 class="media-heading">Dasar Hukum</h3>
-                            <p> <ol>
-                                <li>UU No 12 tahun 2012: TENTANG PENDIDIKAN TINGGI</li>
-                                <li>Permendikbud No 49 Tahun 2014: STANDAR NASIONAL PENDIDIKAN TINGGI</li>
-                                <li>Permendikbud No 81 Tahun 2014: TENTANG IJAZAH, SERTIFIKAT KOMPETENSI, DAN SERTIFIKAT PROFESI PENDIDIKAN TINGGI </li>
-                                </ol>
-                            </p>
-                </div><!--/.col-md-6-->
-                <div class="col-md-6 col-sm-6">
-                   <h3 class="media-heading">SKPI </h3>
-                            <p>Surat Keterangan Pendamping Ijazah (SKPI) atau Diploma Supplement adalah surat pernyataan resmi yang dikeluarkan oleh Perguruan Tinggi, berisi informasi tentang pencapaian akademik atau kualifikasi dari lulusan pendidikan tinggi bergelar.</p>
-                </div><!--/.col-md-6-->
-            </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-6 col-xs-12">
+        <div class="item-boxes services-item wow fadeInDown" data-wow-delay="0.2s">
+          <div class="icon color-1">
+            <i class="lni-pencil"></i>
+          </div>
+          <h4>Pengisian Data Mahasiswa</h4>
+          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut.</p>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 col-xs-12">
+        <div class="item-boxes services-item wow fadeInDown" data-wow-delay="0.4s">
+          <div class="icon color-2">
+            <i class="lni-cog"></i>
+          </div>
+          <h4>Verifikasi Data</h4>
+          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut.</p>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 col-xs-12">
+        <div class="item-boxes services-item wow fadeInDown" data-wow-delay="0.6s">
+          <div class="icon color-3">
+            <i class="lni-stats-up"></i>
+          </div>
+          <h4>Pencetakan SKPI</h4>
+          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut.</p>
+        </div>
+      </div>
+     
+    </div>
   </div>
 </section>
  <section id="dates" class="section">

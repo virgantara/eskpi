@@ -15,10 +15,47 @@
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
+<style type="text/css">
+	
+.navbar-custom {
+    background-color:#C3292D;
+    color:#ffffff;
+    border-radius:0;
+}
 
+.navbar-custom .navbar-nav > li > a {
+    color:#fff;
+}
+
+.navbar-custom .navbar-nav > .active > a {
+    color: #ffffff;
+    background-color:transparent;
+}
+
+.navbar-custom .navbar-nav > li > a:hover,
+.navbar-custom .navbar-nav > li > a:focus,
+.navbar-custom .navbar-nav > .active > a:hover,
+.navbar-custom .navbar-nav > .active > a:focus,
+.navbar-custom .navbar-nav > .open >a {
+    text-decoration: none;
+    background-color: #FF4000;
+}
+
+
+.navbar-custom .navbar-brand {
+    color:#eeeeee;
+}
+.navbar-custom .navbar-toggle {
+    background-color:#eeeeee;
+}
+.navbar-custom .icon-bar {
+    background-color:#33aa33;
+}
+</style>
+<link rel="stylesheet" href="<?=Yii::app()->baseUrl;?>/css/main.css">   
 <body>
 
-	<nav class="navbar navbar-default navbar-inverse">
+	<nav class="navbar navbar-custom ">
 		<div class="container-fluid">
 			<div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -37,41 +74,35 @@
 	        // 'itemCssClass'=>'hover',
 	        'encodeLabel'=>false,
 			'items'=>array(
-				array('label'=>'Home', 'url'=>array('/site/home'),'visible'=>!Yii::app()->user->isGuest),
-				// array('label'=>'Jadwal', 'url'=>array('/jadwal/index'),'visible'=>!Yii::app()->user->isGuest),
-				// [
-				// 	'label' => 'Cetak <span class="caret"></span>',
-				// 	'url' => '#',
-				// 	'visible'=>!Yii::app()->user->isGuest,
-				// 	'itemOptions' => ['class'=>'dropdown-toggle'],
-				// 	'linkOptions' => ['class'=>'dropdown-toggle','data-toggle'=>"dropdown",'role' =>'button'],
-				// 	'items' => [
-				// 		array('label'=>'Cetak Bulk KRS', 'url'=>array('/krs/bulk'),'visible'=>!Yii::app()->user->isGuest),
-				// 		array('label'=>'Cetak Kartu Ujian', 'url'=>array('/krs/kartu'),'visible'=>Yii::app()->user->checkAccess(array(WebUser::R_SA))),
-				// 		array('label'=>'Cetak Jurnal', 'url'=>array('/jadwal/cetakJurnal'),'visible'=>Yii::app()->user->checkAccess(array(WebUser::R_SA))),
-				// 		array('label'=>'Cetak Jadwal Personal All', 'url'=>array('/jadwal/cetakPersonalAll'),'visible'=>Yii::app()->user->checkAccess(array(WebUser::R_SA))),
-				// 		array('label'=>'Cetak Lampiran SK', 'url'=>array('/jadwal/cetakLampiran'),'visible'=>!Yii::app()->user->isGuest),
-				// 	]
-				// ],
-				// [
-				// 	'label' => 'Rekap <span class="caret"></span>',
-				// 	'url' => '#',
-				// 	'visible'=>!Yii::app()->user->isGuest,
-				// 	'itemOptions' => ['class'=>'dropdown-toggle'],
-				// 	'linkOptions' => ['class'=>'dropdown-toggle','data-toggle'=>"dropdown",'role' =>'button'],
-				// 	'items' => [
-				// 		array('label'=>'Rekap Jadwal Per Prodi', 'url'=>array('/jadwal/rekapJadwal'),'visible'=>!Yii::app()->user->isGuest),
-				// 		array('label'=>'Rekap Jadwal Semua Dosen', 'url'=>array('/jadwal/rekapJadwalAll'),'visible'=>!Yii::app()->user->isGuest),
-				// 		array('label'=>'Rekap Jadwal Bentrok', 'url'=>array('/jadwal/rekapJadwalBentrok'),'visible'=>!Yii::app()->user->isGuest),
-				// 	]
-				// ],
+				['label'=>'Home', 'url'=>array('/site/index#slider-area')],
+				[
+					'label' => 'How to <span class="caret"></span>',
+					'url' => '#',
 
-				// array('label'=>'Unggah Jadwal', 'url'=>array('/jadwal/uploadJadwal'),'visible'=>!Yii::app()->user->isGuest),
+					'itemOptions' => ['class'=>'dropdown-toggle'],
+					'linkOptions' => ['class'=>'dropdown-toggle','data-toggle'=>"dropdown",'role' =>'button'],
+					'items' => [
+						array('label'=>'use Apps', 'url'=>'#'),
+						array('label'=>'use SKPI', 'url'=>'#'),
+					]
+				],
+				['label'=>'Important Dates', 'url'=>array('/site/index#dates')],
+				[
+					'label' => 'SKPI <span class="caret"></span>',
+					'url' => '#',
+					'itemOptions' => ['class'=>'dropdown-toggle'],
+					'linkOptions' => ['class'=>'dropdown-toggle','data-toggle'=>"dropdown",'role' =>'button'],
+					'items' => [
+						array('label'=>'About SKPI', 'url'=>array('/site/about')),
+						array('label'=>'Publishing Flow', 'url'=>array('/site/index#flow')),
+					]
+				],
+				// array('label'=>'Unggah index', 'url'=>array('/index/uploadindex'),'visible'=>!Yii::app()->user->isGuest),
 				
 				// // array('label'=>'Unggah PA', 'url'=>array('/mastermahasiswa/uploadPA'),'visible'=>!Yii::app()->user->isGuest),
-				// array('label'=>'Jadwal Personal', 'url'=>array('/jadwal/cetakPerDosen')),
+				// array('label'=>'index Personal', 'url'=>array('/index/cetakPerDosen')),
 				
-				// array('label'=>'Catatan Revisi', 'url'=>array('/jadwalLog/admin'),'visible'=>Yii::app()->user->checkAccess(array(WebUser::R_SA))),
+				// array('label'=>'Catatan Revisi', 'url'=>array('/indexLog/admin'),'visible'=>Yii::app()->user->checkAccess(array(WebUser::R_SA))),
 				
 				// array('label'=>'Data Belum Input Nilai', 'url'=>array('/krs/nilai'),'visible'=>Yii::app()->user->checkAccess(array(WebUser::R_SA))),
 				// [
@@ -83,7 +114,7 @@
 				// 	'items' => [
 				// 		['label'=>'Laporan Input Nilai', 'url'=>['/krs/nilai'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
 				// 		['label'=>'Mahasiswa Belum Lengkap Data Ortu', 'url'=>['/mastermahasiswa/dataortu'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
-				// 		['label'=>'Lampiran SK', 'url'=>array('/jadwalLampiranSk/admin'),'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
+				// 		['label'=>'Lampiran SK', 'url'=>array('/indexLampiranSk/admin'),'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
 				// 	]
 				// ],
 				[
@@ -106,6 +137,8 @@
 				// array('label'=>'Biodata Mahasiswa', 'url'=>array('/mastermahasiswa/dataortu'),'visible'=>Yii::app()->user->checkAccess(array(WebUser::R_SA))),
 				// array('label'=>'Log', 'url'=>array('/logs/admin'),'visible'=>Yii::app()->user->checkAccess(array(WebUser::R_SA))),
 				// array('label'=>'Foto', 'url'=>array('/utils/foto'),'visible'=>Yii::app()->user->checkAccess(array(WebUser::R_SA))),
+				
+				['label'=>'Contact Us', 'url'=>array('/site/contact')],
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest),
 

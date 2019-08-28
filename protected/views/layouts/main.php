@@ -23,6 +23,7 @@
     border-radius:0;
 }
 
+
 .navbar-custom .navbar-nav > li > a {
     color:#fff;
 }
@@ -49,7 +50,7 @@
     background-color:#eeeeee;
 }
 .navbar-custom .icon-bar {
-    background-color:#33aa33;
+    background-color:#C3292D;
 }
 </style>
 <link rel="stylesheet" href="<?=Yii::app()->baseUrl;?>/css/main.css">   

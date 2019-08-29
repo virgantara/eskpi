@@ -78,10 +78,12 @@ If you have business inquiries or other questions, please fill out the following
 		<?php echo $form->labelEx($model,'verifyCode', array ('class'=>'col-sm-3 control-label no-padding-right', 'tabindex'=>'5')); ?>
 		<div class="col-sm-9">
 		
-		<?php echo $form->textField($model,'verifyCode'); ?>
-		<?php $this->widget('CCaptcha'); ?>
-		<small class="hint">Please enter the letters as they are shown in the image above.
-		<br/>Letters are not case-sensitive.</small>
+		<?php 
+		$this->widget('application.extensions.recaptcha.ReCaptcha', array(
+		    'model'     => $model,
+		    'attribute' => 'verifyCode',
+		));
+		?>
 		</div>
 		
 		<?php echo $form->error($model,'verifyCode'); ?>

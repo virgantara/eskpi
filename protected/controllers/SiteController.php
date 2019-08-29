@@ -43,6 +43,32 @@ class SiteController extends Controller
 	public function actionContact()
 	{
 		$model = new ContactForm;
+		if(isset($_POST['ContactForm']))
+
+		{
+
+			$model->attributes=$_POST['ContactForm'];
+
+			if($model->validate())
+			{
+				$message = 'Hello World!';
+				Yii::app()->mailer->Host = 'smtp.gmail.com';
+				Yii::app()->mailer->IsSMTP();
+				Yii::app()->mailer->From = 'skpi@unida.gontor.ac.id';
+				Yii::app()->mailer->FromName = 'Admin SKPI';
+				Yii::app()->mailer->AddReplyTo($model->email);
+				// Yii::app()->mailer->AddAddress('qian@yiiframework.com');
+				Yii::app()->mailer->Subject = $model->subject;
+				Yii::app()->mailer->Body = $message;
+				Yii::app()->mailer->Send();
+				Yii::app()->user->setFlash('contact','Thank you for contacting us. We will respond to you as soon as possible.');
+
+				$this->refresh();
+
+			}
+
+		}
+
 		$this->render('contact',[
 			'model' => $model
 		]);

@@ -44,6 +44,19 @@ return array(
 	      	'class'=>'application.extensions.PHPExcel',
 	    ),
 
+	    'mailer' => array(
+	       'class' => 'application.extensions.mailer.EMailer',
+	       'pathViews' => 'application.views.email',
+	       'pathLayouts' => 'application.views.email.layouts'
+	    ),
+
+	    'reCaptcha' => [
+	        'name' => 'reCaptcha',
+	        'class' => 'application.extensions.recaptcha.ReCaptcha',
+	        'key' => '6Le7hrUUAAAAAG-KlH_58Ud6vQdDdGErZiu8X8Zl',
+	        'secret' => '6Le7hrUUAAAAAI5VlvA78lJjcL9tG4CluPqkHBY2',
+	    ],
+
 		// uncomment the following to enable URLs in path-format
 		/*
 		'urlManager'=>array(
@@ -102,6 +115,6 @@ return array(
 			
 		),
 		// this is used in contact page
-		'adminEmail'=>'oddy@unida.gontor.ac.id',
+		'adminEmail'=>'skpi@unida.gontor.ac.id',
 	),
 );

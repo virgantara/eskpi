@@ -70,9 +70,11 @@ class UnivController extends Controller
 		if(isset($_POST['Univ']))
 		{
 			$model->attributes=$_POST['Univ'];
+			$model->nama = str_replace('font-size:8px','font-size:7px',$model->nama);
+			$model->nama_en = str_replace('font-size:8px','font-size:7px',$model->nama_en);
 			if($model->save()){
 				Yii::app()->user->setFlash('success', "Data telah tersimpan.");
-				$this->redirect(['index']);
+				$this->redirect(['admin']);
 			}
 		}
 
@@ -96,9 +98,11 @@ class UnivController extends Controller
 		if(isset($_POST['Univ']))
 		{
 			$model->attributes=$_POST['Univ'];
+			$model->nama = str_replace('font-size:8px','font-size:7px',$model->nama);
+			$model->nama_en = str_replace('font-size:8px','font-size:7px',$model->nama_en);
 			if($model->save()){
 				Yii::app()->user->setFlash('success', "Data telah tersimpan.");
-				$this->redirect(['index']);
+				$this->redirect(['admin']);
 			}
 		}
 

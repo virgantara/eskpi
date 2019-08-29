@@ -44,8 +44,21 @@ $this->breadcrumbs=array(
 		'value'=>'$this->grid->dataProvider->pagination->currentPage * $this->grid->dataProvider->pagination->pageSize + ($row+1)'
 		),
 		'kode',
-		'nama',
-		'nama_en',
+		[
+			'header' => 'Label',
+			'type' => 'raw',
+			'value' => function($data){
+				return strip_tags($data->nama);
+			}
+		],
+		[
+			'header' => 'Label En',
+			'type' => 'raw',
+			'value' => function($data){
+				return strip_tags($data->nama_en);
+			}
+		],
+		
 		'created_at',
 		'updated_at',
 		array(

@@ -43,11 +43,22 @@ $this->breadcrumbs=array(
 		'header'=>'No',
 		'value'=>'$this->grid->dataProvider->pagination->currentPage * $this->grid->dataProvider->pagination->pageSize + ($row+1)'
 		),
-		'id',
-		'prodi_id',
-		'capem_kategori_id',
-		'label',
-		'label_en',
+		'prodi.nama_prodi',
+		'capemKategori.nama',
+		[
+			'header' => 'Label',
+			'type' => 'raw',
+			'value' => function($data){
+				return strip_tags($data->label);
+			}
+		],
+		[
+			'header' => 'Label En',
+			'type' => 'raw',
+			'value' => function($data){
+				return strip_tags($data->label_en);
+			}
+		],
 		'created_at',
 		/*
 		'updated_at',

@@ -71,6 +71,8 @@ class ProdiCapemController extends Controller
 		{
 
 			$model->attributes=$_POST['ProdiCapem'];
+			$model->label = str_replace('font-size:8px','font-size:7px',$model->label);
+			$model->label_en = str_replace('font-size:8px','font-size:7px',$model->label_en);
 			if($model->save()){
 				Yii::app()->user->setFlash('success', "Data telah tersimpan.");
 				$this->redirect(['index']);
@@ -103,6 +105,8 @@ class ProdiCapemController extends Controller
 		{
 			$model->attributes=$_POST['ProdiCapem'];
 			if($model->save()){
+				$model->label = str_replace('font-size:8px','font-size:7px',$model->label);
+				$model->label_en = str_replace('font-size:8px','font-size:7px',$model->label_en);
 				Yii::app()->user->setFlash('success', "Data telah tersimpan.");
 				$this->redirect(['index']);
 			}

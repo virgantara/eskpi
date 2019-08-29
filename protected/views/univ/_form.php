@@ -32,6 +32,9 @@
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'nama', array ('class'=>'col-sm-3 control-label no-padding-right', 'tabindex'=>'2')); ?>
 		<div class="col-sm-9">
+			<div class="alert alert-danger">
+		Mohon untuk menggunakan jenis Font Times New Roman dan ukuran font 8
+	</div>
 		<?php echo $form->textArea($model,'nama',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'nama'); ?>
 		</div>
@@ -40,6 +43,9 @@
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'nama_en', array ('class'=>'col-sm-3 control-label no-padding-right', 'tabindex'=>'3')); ?>
 		<div class="col-sm-9">
+			<div class="alert alert-danger">
+		Mohon untuk menggunakan jenis Font Times New Roman dan ukuran font 8
+	</div>
 		<?php echo $form->textArea($model,'nama_en',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'nama_en'); ?>
 		</div>

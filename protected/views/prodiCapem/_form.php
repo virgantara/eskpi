@@ -16,7 +16,8 @@
 		'class'=>'form-horizontal'
 	)
 )); ?>
-
+	
+	
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
 	<?php echo $form->errorSummary($model,'<div class="alert alert-danger">Silakan perbaiki beberapa kesalahan berikut:','</div>'); ?>
@@ -42,6 +43,9 @@
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'label', array ('class'=>'col-sm-3 control-label no-padding-right', 'tabindex'=>'4')); ?>
 		<div class="col-sm-9">
+			<div class="alert alert-danger">
+		Mohon untuk menggunakan jenis Font Times New Roman dan ukuran font 8
+	</div>
 		<?php echo $form->textArea($model,'label',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'label'); ?>
 		</div>
@@ -50,6 +54,9 @@
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'label_en', array ('class'=>'col-sm-3 control-label no-padding-right', 'tabindex'=>'5')); ?>
 		<div class="col-sm-9">
+			<div class="alert alert-danger">
+		Mohon untuk menggunakan jenis Font Times New Roman dan ukuran font 8
+	</div>
 		<?php echo $form->textArea($model,'label_en',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'label_en'); ?>
 		</div>
@@ -67,7 +74,7 @@
 
 <?php $this->endWidget(); ?>
 
-<script src="https://cdn.ckeditor.com/4.12.1/full/ckeditor.js"></script>
+<script src="<?=Yii::app()->baseUrl;?>/ckeditor/ckeditor.js"></script>
 <script>
     $(document).ready(function(){
     	CKEDITOR.addCss('.cke_editable p { margin: 0 !important; }');

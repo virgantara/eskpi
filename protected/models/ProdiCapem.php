@@ -14,8 +14,7 @@
  *
  * The followings are the available model relations:
  * @property Masterprogramstudi $prodi
- * @property ProdiCapem $capemKategori
- * @property ProdiCapem[] $prodiCapems
+ * @property CapemKategori $capemKategori
  */
 class ProdiCapem extends CActiveRecord
 {
@@ -58,8 +57,7 @@ class ProdiCapem extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'prodi' => array(self::BELONGS_TO, 'Masterprogramstudi', 'prodi_id'),
-			'capemKategori' => array(self::BELONGS_TO, 'ProdiCapem', 'capem_kategori_id'),
-			'prodiCapems' => array(self::HAS_MANY, 'ProdiCapem', 'capem_kategori_id'),
+			'capemKategori' => array(self::BELONGS_TO, 'CapemKategori', 'capem_kategori_id'),
 		);
 	}
 

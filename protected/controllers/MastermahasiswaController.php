@@ -106,7 +106,7 @@ class MastermahasiswaController extends Controller
 	    $tgl = explode('-', $model->tgl_lahir);
 
 	    $dob = $tgl[2].' '.$bulans[$tgl[1]].' '.$tgl[0];
-	    $tgl_sk = $model->tgl_sk_yudisium ?: '0000-00-00';
+	    $tgl_sk = $model->tgl_sk_yudisium ?: '1970-01-01';
 	    $tgl_sk = explode('-', $tgl_sk);
 	    $tgl_sk_yudisium = $tgl_sk[2].' '.$bulans[$tgl_sk[1]].' '.$tgl_sk[0];
 		$style = array(

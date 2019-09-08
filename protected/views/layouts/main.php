@@ -125,7 +125,8 @@
 					'itemOptions' => ['class'=>'dropdown-toggle'],
 					'linkOptions' => ['class'=>'dropdown-toggle','data-toggle'=>"dropdown",'role' =>'button'],
 					'items' => [
-						['label'=>'Mahasiswa', 'url'=>['/mastermahasiswa/admin'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
+						['label'=>'Mahasiswa', 'url'=>['/mastermahasiswa/admin'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA, WebUser::R_PRODI])],
+						['label'=>'Program Tambahan', 'url'=>['/mahasiswaProgramTambahan/index'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA, WebUser::R_PRODI])],
 						['label'=>'Kategori Capaian Pembelajaran', 'url'=>['/capemKategori/admin'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
 						['label'=>'Prodi Capaian Pembelajaran', 'url'=>['/prodiCapem/admin'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],
 						// ['label'=>'User di SIAKAD', 'url'=>['/users/index'],'visible'=>Yii::app()->user->checkAccess([WebUser::R_SA])],

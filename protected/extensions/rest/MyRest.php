@@ -13,6 +13,36 @@ class MyRest extends CApplicationComponent
 	public $baseurlVClaim = '';
 	public $baseurlAplicare = '';
 
+	public static function getListMahasiswa($params){
+		$host = Yii::app()->rest->baseurl_apigateway;
+
+		$url = $host."/m/list/search";
+
+		$hasil = null;
+
+		$api = new RestClient;
+		$headers = [
+			'Content-Type' => 'application/x-www-form-urlencoded'
+		];
+
+		$result = $api->get($url, $params, $headers);
+		// print_r($result);exit;
+		try{
+			
+			$hasil = $result->decode_response();
+		}
+
+		catch(RestClientException  $e){
+			print_r($e->getMessage());
+			exit;
+			// throw new RestClientException;
+			$hasil = null;
+		}
+
+		
+		return $hasil;
+	}
+
 	public static function getListNegara($params){
 		$host = Yii::app()->rest->baseurl_apigateway;
 

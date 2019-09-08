@@ -28,11 +28,11 @@ class MastermahasiswaController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','templatePA'),
+				'actions'=>array('index','view','templatePA','skpi'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','uploadPA','ortu','dataortu','updatebio','ajaxFindWilayah','ajaxFindWilayahOne','ajaxFindNegara','uploadMhs','ajaxSync','skpi'),
+				'actions'=>array('create','update','uploadPA','ortu','dataortu','updatebio','ajaxFindWilayah','ajaxFindWilayahOne','ajaxFindNegara','uploadMhs','ajaxSync','getListMahasiswa'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -43,6 +43,46 @@ class MastermahasiswaController extends Controller
 				'users'=>array('*'),
 			),
 		);
+	}
+
+	public function actionGetListMahasiswa()
+	{
+		$model = null;
+
+		$result = [];
+		if(Yii::app()->request->isAjaxRequest)
+		{
+			
+
+			$post = $_GET['term'];
+			// print_r($post);exit;
+			if(!empty($post)){
+				
+
+				$params = [
+					'key' => $post,
+				];
+
+				$hasil = Yii::app()->rest->getListMahasiswa($params);
+				
+			
+				$result = $hasil->values;
+				$results = [];
+				foreach($result as $m)
+				{
+
+					$results[] = array(
+						'id' => $m->nim_mhs,
+						'value' => $m->nim_mhs.' - '.ucwords(strtolower($m->nama_mahasiswa)),
+
+					);
+				}
+
+		        echo CJSON::encode($results);
+			    
+		
+			}
+		}
 	}
 
 	public function actionSkpi($id)
@@ -66,6 +106,9 @@ class MastermahasiswaController extends Controller
 	    $tgl = explode('-', $model->tgl_lahir);
 
 	    $dob = $tgl[2].' '.$bulans[$tgl[1]].' '.$tgl[0];
+	    $tgl_sk = $model->tgl_sk_yudisium ?: '0000-00-00';
+	    $tgl_sk = explode('-', $tgl_sk);
+	    $tgl_sk_yudisium = $tgl_sk[2].' '.$bulans[$tgl_sk[1]].' '.$tgl_sk[0];
 		$style = array(
 		    'border' => false,
 			'padding' => 0,
@@ -74,6 +117,15 @@ class MastermahasiswaController extends Controller
 		    'position' => 'R'
 		);
 		
+		$user = Yii::app()->db->createCommand()
+	    ->select('sum( nilai * ( 1 - abs( sign( id_jenis_kegiatan -1 ) ) ) ) AS "1", sum( nilai * ( 1 - abs( sign( id_jenis_kegiatan -2 ) ) ) ) AS "2", sum( nilai * ( 1 - abs( sign( id_jenis_kegiatan -3 ) ) ) ) AS "3", sum( nilai * ( 1 - abs( sign( id_jenis_kegiatan -4 ) ) ) ) AS "4", sum( nilai * ( 1 - abs( sign( id_jenis_kegiatan -5 ) ) ) ) AS "5", sum( nilai * ( 1 - abs( sign( id_jenis_kegiatan -6 ) ) ) ) AS "6", sum(nilai) as total_nilai')
+	    ->from('simak_mastermahasiswa m')
+	    ->leftJoin('simak_kegiatan_mahasiswa', 'simak_kegiatan_mahasiswa.nim = m.nim_mhs')
+	    ->where('m.nim_mhs=:id', array(':id'=>$model->nim_mhs))
+	    ->andWhere('penilai is not null')
+	    ->andWhere('penilai != ""')
+	    ->group('nim_mhs')
+	    ->queryRow();
 
 		$pdf = Yii::createComponent('application.extensions.tcpdf.ETcPdf', 
 			                'P', 'mm', 'A4', true, 'UTF-8');
@@ -115,7 +167,8 @@ class MastermahasiswaController extends Controller
 		$pdf->writeHTMLCell(110, 10, $margin_limit, $top, $html);
 
 		$top += 10;
-		$pdf->write2DBarcode($no_ijazah, 'QRCODE,Q', $pdf->getPageWidth() - 30, $top, 20, 20, $style, 'T');
+		$urlToSKPI = Yii::app()->createAbsoluteUrl('mastermahasiswa/skpi',['id'=>$id]);
+		$pdf->write2DBarcode($urlToSKPI, 'QRCODE,Q', $pdf->getPageWidth() - 30, $top, 20, 20, $style, 'T');
 
 		$pdf->SetFont('times', 'I', 14);
 		$html = 'Diploma Supplement';
@@ -177,7 +230,7 @@ class MastermahasiswaController extends Controller
 		$pdf->writeHTMLCell(($pdf->getPageWidth()-50) / 2, 10, $margin_limit-1, $top, $html);
 
 		$html = '<table border="0" cellspacing="3" cellpadding="4">';
-		$html .= '<tr><td bgcolor="#D8D8D8" >'.ucwords(strtolower($model->tgl_sk_yudisium)).'</td></tr>';
+		$html .= '<tr><td bgcolor="#D8D8D8" >'.ucwords(strtolower($tgl_sk_yudisium)).'</td></tr>';
 		$html .= '</table>';
 		$pdf->SetFont('times', '', 8);
 		$pdf->writeHTMLCell(($pdf->getPageWidth()-50) / 2, 10, $pdf->getPageWidth() / 2 + 7, $top, $html);
@@ -209,7 +262,7 @@ class MastermahasiswaController extends Controller
 		$pdf->writeHTMLCell(($pdf->getPageWidth()-50) / 2, 10, $margin_limit-1, $top, $html);
 
 		$html = '<table border="0" cellspacing="3" cellpadding="4">';
-		$html .= '<tr><td bgcolor="#D8D8D8" >'.ucwords(strtolower($model->no_ijazah)).'</td></tr>';		
+		$html .= '<tr><td bgcolor="#D8D8D8" >'.ucwords(strtolower($no_ijazah)).'</td></tr>';		
 		$html .= '</table>';
 		$pdf->SetFont('times', '', 8);
 		$pdf->writeHTMLCell(($pdf->getPageWidth()-50) / 2, 10, $pdf->getPageWidth() / 2 + 7, $top, $html);
@@ -583,11 +636,13 @@ class MastermahasiswaController extends Controller
 		$listJenisKegiatan = JenisKegiatan::model()->findAll();
 		foreach($listJenisKegiatan as $q => $k)
 		{
-			$html .= '<tr><td width="10%" style="text-align:center">'.($q+1).'</td><td width="50%">'.$k->nama_jenis_kegiatan.'</td><td width="25%" style="text-align:center">('.$k->nilai_minimal.'-'.$k->nilai_maximal.')</td><td width="15%" style="text-align:center"></td></tr>';
+			$html .= '<tr><td width="10%" style="text-align:center">'.($q+1).'</td><td width="50%">'.$k->nama_jenis_kegiatan.'</td><td width="25%" style="text-align:center">('.$k->nilai_minimal.'-'.$k->nilai_maximal.')</td><td width="15%" style="text-align:center">'.$user[$k->id].'</td></tr>';
 		}
 
-		$html .= '<tr><td width="60%" style="text-align:center" colspan="2">Total</td><td width="25%" style="text-align:center">(200 - 400)</td><td width="15%" style="text-align:center"></td></tr>';
-		$html .= '<tr><td width="60%" style="text-align:center" colspan="2">Indeks</td><td width="25%" style="text-align:center">(2.00 - 4.00)</td><td width="15%" style="text-align:center"></td></tr>';
+		$html .= '<tr><td width="60%" style="text-align:center" colspan="2">Total</td><td width="25%" style="text-align:center">(200 - 400)</td><td width="15%" style="text-align:center">'.$user['total_nilai'].'</td></tr>';
+
+		$index = $user['total_nilai'] / 400 * 4;
+		$html .= '<tr><td width="60%" style="text-align:center" colspan="2">Indeks</td><td width="25%" style="text-align:center">(2.00 - 4.00)</td><td width="15%" style="text-align:center">'.$index.'</td></tr>';
 		$html .= '</table>';
 
 		$pdf->writeHTMLCell(($pdf->getPageWidth()-50) / 2, 10, $margin_limit-1, $top, $html);
@@ -599,11 +654,11 @@ class MastermahasiswaController extends Controller
 		$listJenisKegiatan = JenisKegiatan::model()->findAll();
 		foreach($listJenisKegiatan as $q => $k)
 		{
-			$html .= '<tr><td width="10%" style="text-align:center">'.($q+1).'</td><td width="50%">'.$k->nama_jenis_kegiatan_en.'</td><td width="25%" style="text-align:center">('.$k->nilai_minimal.'-'.$k->nilai_maximal.')</td><td width="15%" style="text-align:center"></td></tr>';
+			$html .= '<tr><td width="10%" style="text-align:center">'.($q+1).'</td><td width="50%">'.$k->nama_jenis_kegiatan_en.'</td><td width="25%" style="text-align:center">('.$k->nilai_minimal.'-'.$k->nilai_maximal.')</td><td width="15%" style="text-align:center">'.$user[$k->id].'</td></tr>';
 		}
 
-		$html .= '<tr><td width="60%" style="text-align:center" colspan="2">Total</td><td width="25%" style="text-align:center">(200 - 400)</td><td width="15%" style="text-align:center"></td></tr>';
-		$html .= '<tr><td width="60%" style="text-align:center" colspan="2">Index</td><td width="25%" style="text-align:center">(2.00 - 4.00)</td><td width="15%" style="text-align:center"></td></tr>';
+		$html .= '<tr><td width="60%" style="text-align:center" colspan="2">Total</td><td width="25%" style="text-align:center">(200 - 400)</td><td width="15%" style="text-align:center">'.$user['total_nilai'].'</td></tr>';
+		$html .= '<tr><td width="60%" style="text-align:center" colspan="2">Index</td><td width="25%" style="text-align:center">(2.00 - 4.00)</td><td width="15%" style="text-align:center">'.$index.'</td></tr>';
 		$html .= '</table>';
 		$pdf->writeHTMLCell(($pdf->getPageWidth()-50) / 2, 10, $pdf->getPageWidth() / 2 + 8-1, $top, $html);
 		
@@ -619,27 +674,29 @@ Baik (2.00-2.75), Memuaskan (2.76-3.00), Sangat Memuaskan (3.01-3.50), Dengan Pu
 
 		$pdf->setFont('times','','7');
 		$top += 10;
-		$html = 'Program kegiatan tambahan dan pelatihan yang telah diikuti selama menjadi mahasiswa adalah sebagai berikut:
-    <ol>
-    <li>Internship (592 jam),</li>
-    <li>Pre-Graduation Program (120 jam).</li>
-    <li>Freshmen Enrichment Program (120 jam),</li> 
-    <li>Community Engagement (30 jam), </li>
-    <li>Latihan Dasar Kepemimpinan (24 jam), Latihan Kemimpinan Manajemen Mahasiswa (15 jam),</li>
-    <li>Induksi Pemimpin Organisasi Kemahasiswaan (30 jam).</li>
-    </ol>
-    ';
+		$html = 'Program kegiatan tambahan dan pelatihan yang telah diikuti selama menjadi mahasiswa adalah sebagai berikut:<ol>';
+    
+    $listProgram = MahasiswaProgramTambahan::getListProgram($model->nim_mhs);
+    foreach($listProgram as $p)
+    {
+    	$html .= '<li>'.$p->nama.' ('.$p->durasi.'),</li>';	
+    }
+    // $html .= '<li>Internship (592 jam),</li>';
+    // $html .= '<li>Pre-Graduation Program (120 jam).</li>';
+    // $html .= '<li>Freshmen Enrichment Program (120 jam),</li> ';
+    // $html .= '<li>Community Engagement (30 jam), </li>';
+    // $html .= '<li>Latihan Dasar Kepemimpinan (24 jam), Latihan Kemimpinan Manajemen Mahasiswa (15 jam),</li>';
+    // $html .= '<li>Induksi Pemimpin Organisasi Kemahasiswaan (30 jam).</li>';
+
+    $html .= '</ol>';
 		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $margin_limit, $top, $html);
-		$html = 'Program kegiatan tambahan dan pelatihan yang telah diikuti selama menjadi mahasiswa adalah sebagai berikut:
-    <ol>
-    <li>Internship (592 hours),</li>
-    <li>Pre-Graduation Program (120 hours).</li>
-    <li>Freshmen Enrichment Program (120 hours),</li> 
-    <li>Community Engagement (30 hours), </li>
-    <li>Basic Leadership Training (24 hours), Advanced Leadership Training (15 hours),</li>
-    <li>Induction for leaders of student organizations (30 hours).</li>
-    </ol>
-    ';
+		$html = 'Program kegiatan tambahan dan pelatihan yang telah diikuti selama menjadi mahasiswa adalah sebagai berikut:<ol>';
+	    foreach($listProgram as $p)
+	    {
+	    	$html .= '<li>'.$p->nama_en.' ('.$p->durasi_en.'),</li>';	
+	    }
+
+	    $html .= '</ol>';
 		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $pdf->getPageWidth() / 2 + 8, $top, $html);
 
 		$top += 32;

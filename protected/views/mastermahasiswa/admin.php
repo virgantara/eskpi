@@ -74,7 +74,7 @@ $this->breadcrumbs=array(
 				// 	'options' => array('title'=>'Cetak Hasil','class'=>'print'),      
 	   //          ),
 				'skpi' => array(
-					'url'=>'Yii::app()->createUrl("mastermahasiswa/skpi/", ["id"=>$data->id])',   
+					'url'=>'Yii::app()->createUrl("mastermahasiswa/skpi/", ["eid"=>base64_encode($data->id)])',   
 					// 'label'=>'<i class="fa fa-magnifier"></i>',
 					'options' => array('title'=>'View','class'=>'view'),      
 	            ),

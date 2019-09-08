@@ -85,8 +85,9 @@ class MastermahasiswaController extends Controller
 		}
 	}
 
-	public function actionSkpi($id)
+	public function actionSkpi($eid)
 	{
+		$id = base64_decode($eid);
 		$model = $this->loadModel($id);
 		$bulans =  array(
 	    	'01' => 'Januari',
@@ -167,7 +168,7 @@ class MastermahasiswaController extends Controller
 		$pdf->writeHTMLCell(110, 10, $margin_limit, $top, $html);
 
 		$top += 10;
-		$urlToSKPI = Yii::app()->createAbsoluteUrl('mastermahasiswa/skpi',['id'=>$id]);
+		$urlToSKPI = Yii::app()->createAbsoluteUrl('mastermahasiswa/skpi',['eid'=>$eid]);
 		$pdf->write2DBarcode($urlToSKPI, 'QRCODE,Q', $pdf->getPageWidth() - 30, $top, 20, 20, $style, 'T');
 
 		$pdf->SetFont('times', 'I', 14);

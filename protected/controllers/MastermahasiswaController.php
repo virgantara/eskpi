@@ -972,8 +972,9 @@ Email: skpi@unida.gontor.ac.id</span></span></p>
 ';
 
 		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $pdf->getPageWidth() / 2 + 8, $top, $html);
-		
-		$pdf->Output();
+		$filename = 'SKPI_'.$model->nim_mhs.'_'.date('Y-m-d H:i:s').'.pdf';
+		// $string = $pdf->Output($filename, 'I');
+		$pdf->Output($filename, 'I');
 	}
 
 	public function actionAjaxSync()

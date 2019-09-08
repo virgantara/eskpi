@@ -76,7 +76,7 @@ $this->breadcrumbs=array(
 				'skpi' => array(
 					'url'=>'Yii::app()->createUrl("mastermahasiswa/skpi/", ["eid"=>base64_encode($data->id)])',   
 					// 'label'=>'<i class="fa fa-magnifier"></i>',
-					'options' => array('title'=>'View','class'=>'view'),      
+					'options' => array('title'=>'View','class'=>'view','target'=>'_blank'),      
 	            ),
 				
 

@@ -246,7 +246,7 @@ class Mastermahasiswa extends CActiveRecord
 		$criteria=new CDbCriteria;
 		$sort = new CSort;
 
-		$criteria->compare('kode_prodi',$this->kode_prodi,true);
+		$criteria->compare('kode_prodi',$this->kode_prodi);
 
 		$criteria->compare('nim_mhs',$this->nim_mhs,true);
 		$criteria->compare('nama_mahasiswa',$this->nama_mahasiswa,true);
@@ -254,9 +254,9 @@ class Mastermahasiswa extends CActiveRecord
 		$criteria->compare('tahun_masuk',$this->tahun_masuk,true);
 		$criteria->compare('semester_awal',$this->semester_awal,true);
 		
-		$criteria->compare('semester',$this->semester,true);
+		$criteria->compare('semester',$this->semester);
 		$criteria->compare('status_aktivitas',$this->status_aktivitas,true);
-		$criteria->compare('kampus',$this->kampus,true);
+		$criteria->compare('kampus',$this->kampus);
 	
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

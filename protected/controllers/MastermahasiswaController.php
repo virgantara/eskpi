@@ -128,6 +128,7 @@ class MastermahasiswaController extends Controller
 	    ->group('nim_mhs')
 	    ->queryRow();
 
+	    ob_start(); 
 		$pdf = Yii::createComponent('application.extensions.tcpdf.ETcPdf', 
 			                'P', 'mm', 'A4', true, 'UTF-8');
 
@@ -505,12 +506,14 @@ class MastermahasiswaController extends Controller
 			'capem_kategori_id' => $k->id
 		]);				
 
+		$top += 5;
 		foreach($listCapemProdi as $cp)
 		{
 			$html = $cp->label;
 			$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $margin_limit, $top, $html);
 			$html = $cp->label_en;
-			$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $pdf->getPageWidth() / 2 + 8, $top, $html);				
+			$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $pdf->getPageWidth() / 2 + 8, $top, $html);
+			// $top += 5;
 		}
 
 		$k = CapemKategori::model()->findByPk(2);
@@ -666,22 +669,22 @@ class MastermahasiswaController extends Controller
 		$pdf->setFont('times','','6');
 		$top += 51;
 		$html = 'Skala 1-4; A+=4.00, A=3.75, A-=3.50, B+=3.25, B=3.00, B-=2.75, C+=2.50, C=2.00<br>
-Baik (2.00-2.75), Memuaskan (2.76-3.00), Sangat Memuaskan (3.01-3.50), Dengan Pujian (3.76-4.00)';
-		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $margin_limit, $top, $html);
-		$html = '<i>Scale 1-4; A+=4.00, A=3.75, A-=3.50, B+=3.25, B=3.00, B-=2.75, C+=2.50, C=2.00
-// Good (2.00-2.75), Very Good (2.76-3.00), Excellent (3.01-3.50), Cum Laude
-//  (3.76-4.00)</i>';
-		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $pdf->getPageWidth() / 2 + 8, $top, $html);
+			Baik (2.00-2.75), Memuaskan (2.76-3.00), Sangat Memuaskan (3.01-3.50), Dengan Pujian (3.76-4.00)';
+					$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $margin_limit, $top, $html);
+					$html = '<i>Scale 1-4; A+=4.00, A=3.75, A-=3.50, B+=3.25, B=3.00, B-=2.75, C+=2.50, C=2.00
+			// Good (2.00-2.75), Very Good (2.76-3.00), Excellent (3.01-3.50), Cum Laude
+			//  (3.76-4.00)</i>';
+					$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $pdf->getPageWidth() / 2 + 8, $top, $html);
 
 		$pdf->setFont('times','','7');
 		$top += 10;
 		$html = 'Program kegiatan tambahan dan pelatihan yang telah diikuti selama menjadi mahasiswa adalah sebagai berikut:<ol>';
     
-    $listProgram = MahasiswaProgramTambahan::getListProgram($model->nim_mhs);
-    foreach($listProgram as $p)
-    {
-    	$html .= '<li>'.$p->nama.' ('.$p->durasi.'),</li>';	
-    }
+	    $listProgram = MahasiswaProgramTambahan::getListProgram($model->nim_mhs);
+	    foreach($listProgram as $p)
+	    {
+	    	$html .= '<li>'.$p->nama.' ('.$p->durasi.'),</li>';	
+	    }
     // $html .= '<li>Internship (592 jam),</li>';
     // $html .= '<li>Pre-Graduation Program (120 jam).</li>';
     // $html .= '<li>Freshmen Enrichment Program (120 jam),</li> ';
@@ -689,7 +692,7 @@ Baik (2.00-2.75), Memuaskan (2.76-3.00), Sangat Memuaskan (3.01-3.50), Dengan Pu
     // $html .= '<li>Latihan Dasar Kepemimpinan (24 jam), Latihan Kemimpinan Manajemen Mahasiswa (15 jam),</li>';
     // $html .= '<li>Induksi Pemimpin Organisasi Kemahasiswaan (30 jam).</li>';
 
-    $html .= '</ol>';
+    	$html .= '</ol>';
 		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $margin_limit, $top, $html);
 		$html = 'Program kegiatan tambahan dan pelatihan yang telah diikuti selama menjadi mahasiswa adalah sebagai berikut:<ol>';
 	    foreach($listProgram as $p)
@@ -702,15 +705,15 @@ Baik (2.00-2.75), Memuaskan (2.76-3.00), Sangat Memuaskan (3.01-3.50), Dengan Pu
 
 		$top += 32;
 		$html = 'Catatan:<br>
-Program-program tersebut di atas terdiri 
-atas kegiatan untuk mengembangkan soft 
-skills mahasiswa. Daftar kegiatan ko-kurikuler 
-dan ekstra-kurikuler yang diikuti oleh pemegang SKPI ini terlampir.
-    ';
-		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $margin_limit, $top, $html);
-		$html = 'Note:<br>
-The above-mentioned programs comprise of activities that develop student’s soft skills. A list of co-curricular and extracurricular activities taken by the holder of this supplement is attached.
-    ';
+			Program-program tersebut di atas terdiri 
+			atas kegiatan untuk mengembangkan soft 
+			skills mahasiswa. Daftar kegiatan ko-kurikuler 
+			dan ekstra-kurikuler yang diikuti oleh pemegang SKPI ini terlampir.
+			    ';
+					$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $margin_limit, $top, $html);
+					$html = 'Note:<br>
+			The above-mentioned programs comprise of activities that develop student’s soft skills. A list of co-curricular and extracurricular activities taken by the holder of this supplement is attached.
+			    ';
 		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $pdf->getPageWidth() / 2 + 8, $top, $html);
 	
 		$pdf->AddPage();
@@ -912,69 +915,71 @@ The above-mentioned programs comprise of activities that develop student’s sof
 		$html = '
 		<p style="text-align:justify">CATATAN:</p>
 
-<ul>
-	<li>
-	<p style="text-align:justify"><span style="font-size:7px"><span style="font-family:Times New Roman,Times,serif"><span style="color:#333333">SKPI dikeluarkan oleh institusi pendidikan tinggi yang berwenang</span></span></span> <span style="font-size:7px"><span style="font-family:Times New Roman,Times,serif"><span style="color:#333333">mengeluarkan ijazah sesuai dengan paraturan perundang-undangan yang berlaku.</span></span></span></p>
-	</li>
-	<li>
-	<p style="text-align:justify"><span style="font-size:7px"><span style="font-family:Times New Roman,Times,serif"><span style="color:#333333">SKPI hanya diterbitkan setelah mahasiswa dinyatakan lulus dari suatu program studi secara resmi oleh Perguruan Tinggi.</span></span></span></p>
-	</li>
-	<li>
-	<p style="text-align:justify"><span style="font-size:7px"><span style="font-family:Times New Roman,Times,serif"><span style="color:#333333">SKPI diterbitkan dalam Bahasa Indonesia dan Bahasa Inggris.</span></span></span></p>
-	</li>
-	<li>
-	<p style="margin-right:61px; text-align:justify"><span style="font-size:7px"><span style="font-family:Times New Roman,Times,serif"><span style="color:#333333">SKPI yang asli diterbitkan mengunakan kertas khusus (barcode/halogram security paper) berlogo Perguruan Tinggi, yang diterbitkan secara khusus oleh Perguruan Tinggi.</span></span></span></p>
-	</li>
-	<li>
-	<p style="margin-right:61px; text-align:justify"><span style="font-size:7px"><span style="font-family:Times New Roman,Times,serif"><span style="color:#333333">Penerima SKPI dicantumkan dalam situs resmi Perguruan Tinggi.</span></span></span></p>
-	</li>
-</ul>
+			<ul>
+				<li>
+				<p style="text-align:justify"><span style="font-size:7px"><span style="font-family:Times New Roman,Times,serif"><span style="color:#333333">SKPI dikeluarkan oleh institusi pendidikan tinggi yang berwenang</span></span></span> <span style="font-size:7px"><span style="font-family:Times New Roman,Times,serif"><span style="color:#333333">mengeluarkan ijazah sesuai dengan paraturan perundang-undangan yang berlaku.</span></span></span></p>
+				</li>
+				<li>
+				<p style="text-align:justify"><span style="font-size:7px"><span style="font-family:Times New Roman,Times,serif"><span style="color:#333333">SKPI hanya diterbitkan setelah mahasiswa dinyatakan lulus dari suatu program studi secara resmi oleh Perguruan Tinggi.</span></span></span></p>
+				</li>
+				<li>
+				<p style="text-align:justify"><span style="font-size:7px"><span style="font-family:Times New Roman,Times,serif"><span style="color:#333333">SKPI diterbitkan dalam Bahasa Indonesia dan Bahasa Inggris.</span></span></span></p>
+				</li>
+				<li>
+				<p style="margin-right:61px; text-align:justify"><span style="font-size:7px"><span style="font-family:Times New Roman,Times,serif"><span style="color:#333333">SKPI yang asli diterbitkan mengunakan kertas khusus (barcode/halogram security paper) berlogo Perguruan Tinggi, yang diterbitkan secara khusus oleh Perguruan Tinggi.</span></span></span></p>
+				</li>
+				<li>
+				<p style="margin-right:61px; text-align:justify"><span style="font-size:7px"><span style="font-family:Times New Roman,Times,serif"><span style="color:#333333">Penerima SKPI dicantumkan dalam situs resmi Perguruan Tinggi.</span></span></span></p>
+				</li>
+			</ul>
 
-<p style="text-align:justify"><em>Official Notes: </em></p>
+			<p style="text-align:justify"><em>Official Notes: </em></p>
 
-<ul>
-	<li>
-	<p style="margin-right:47px; text-align:justify"><em><span style="font-size:7px"><span style="font-family:Times New Roman,Times,serif"><span style="color:#333333"><em>This Diploma Supplement is issued by University of Darussalam Gontor, a higher education institution authorized to issue diplomas in accordance with the applicable Laws.</em></span></span></span></em></p>
-	</li>
-	<li>
-	<p style="margin-right:47px; text-align:justify"><em><span style="font-size:7px"><span style="font-family:Times New Roman,Times,serif"><span style="color:#333333"><em>This Diploma Supplement is issued after the student is offcially declared a graduate of a study program by the University of Darussalam Gontor.</em></span></span></span></em></p>
-	</li>
-	<li>
-	<p style="text-align:justify"><em><span style="font-size:7px"><span style="font-family:Times New Roman,Times,serif"><span style="color:#333333"><em>This Diploma Supplement is written in both Bahasa Indonesia English.</em></span></span></span></em></p>
-	</li>
-	<li>
-	<p style="margin-right:56px; text-align:justify"><em><span style="font-size:7px"><span style="font-family:Times New Roman,Times,serif"><span style="color:#333333"><em>The original copy of this Diploma Supplement is on barcoded/halogram security paper, sealed with the higher education institution&rsquo;s logo, and issued exclusively by </em></span><span style="color:#333333"><em>University of Darussalam Gontor</em></span><span style="color:#333333"><em>.</em></span></span></span></em></p>
-	</li>
-	<li>
-	<p style="text-align:justify"><em><span style="font-size:7px"><span style="font-family:Times New Roman,Times,serif"><span style="color:#333333"><em>The awardee of this Diploma Supplement is officially listed in the University&rsquo;s oﬃcial website.</em></span></span></span></em></p>
-	</li>
-</ul>
+			<ul>
+				<li>
+				<p style="margin-right:47px; text-align:justify"><em><span style="font-size:7px"><span style="font-family:Times New Roman,Times,serif"><span style="color:#333333"><em>This Diploma Supplement is issued by University of Darussalam Gontor, a higher education institution authorized to issue diplomas in accordance with the applicable Laws.</em></span></span></span></em></p>
+				</li>
+				<li>
+				<p style="margin-right:47px; text-align:justify"><em><span style="font-size:7px"><span style="font-family:Times New Roman,Times,serif"><span style="color:#333333"><em>This Diploma Supplement is issued after the student is offcially declared a graduate of a study program by the University of Darussalam Gontor.</em></span></span></span></em></p>
+				</li>
+				<li>
+				<p style="text-align:justify"><em><span style="font-size:7px"><span style="font-family:Times New Roman,Times,serif"><span style="color:#333333"><em>This Diploma Supplement is written in both Bahasa Indonesia English.</em></span></span></span></em></p>
+				</li>
+				<li>
+				<p style="margin-right:56px; text-align:justify"><em><span style="font-size:7px"><span style="font-family:Times New Roman,Times,serif"><span style="color:#333333"><em>The original copy of this Diploma Supplement is on barcoded/halogram security paper, sealed with the higher education institution&rsquo;s logo, and issued exclusively by </em></span><span style="color:#333333"><em>University of Darussalam Gontor</em></span><span style="color:#333333"><em>.</em></span></span></span></em></p>
+				</li>
+				<li>
+				<p style="text-align:justify"><em><span style="font-size:7px"><span style="font-family:Times New Roman,Times,serif"><span style="color:#333333"><em>The awardee of this Diploma Supplement is officially listed in the University&rsquo;s oﬃcial website.</em></span></span></span></em></p>
+				</li>
+			</ul>
 
 
 
-    ';
+    	';
 		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $margin_limit, $top, $html);
 
 		$html = '<p><span style="font-size:8px"><span style="font-family:Times New Roman,Times,serif">ALAMAT<br />
-<em>Contact Details</em><br />
-UNIVERSITAS DARUSSALAM GONTOR</span></span></p>
+			<em>Contact Details</em><br />
+			UNIVERSITAS DARUSSALAM GONTOR</span></span></p>
 
-<p><br />
-<span style="font-size:8px"><span style="font-family:Times New Roman,Times,serif">Jl. Raya Siman No. 5<br />
-Ponorogo, Jawa Timur<br />
-Indonesia<br />
-Tel: (0352) 357 4562<br />
-Fax: (0352) 488 182<br />
-Website: http://unida.gontor.ac.id<br />
-Email: skpi@unida.gontor.ac.id</span></span></p>
+			<p><br />
+			<span style="font-size:8px"><span style="font-family:Times New Roman,Times,serif">Jl. Raya Siman No. 5<br />
+			Ponorogo, Jawa Timur<br />
+			Indonesia<br />
+			Tel: (0352) 357 4562<br />
+			Fax: (0352) 488 182<br />
+			Website: http://unida.gontor.ac.id<br />
+			Email: skpi@unida.gontor.ac.id</span></span></p>
 
-<p>&nbsp;</p>
-';
+			<p>&nbsp;</p>
+			';
 
 		$pdf->writeHTMLCell(($pdf->getPageWidth()-2*$margin_limit) / 2, 10, $pdf->getPageWidth() / 2 + 8, $top, $html);
 		$filename = 'SKPI_'.$model->nim_mhs.'_'.date('Y-m-d H:i:s').'.pdf';
 		// $string = $pdf->Output($filename, 'I');
 		$pdf->Output($filename, 'I');
+
+		die();
 	}
 
 	public function actionAjaxSync()
